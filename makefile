@@ -6,7 +6,7 @@
 #    By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/25 22:04:15 by tborges-          #+#    #+#              #
-#    Updated: 2025/05/25 22:51:32 by tborges-         ###   ########.fr        #
+#    Updated: 2025/05/25 23:25:10 by tborges-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,14 +87,14 @@
 # **************************************************************************** #
 
 # Nome do executável
-NAME = so_long
+NAME = cub3d
 
 # Compilador e flags
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I ./mlx -I ./libft -I /opt/X11/include
 
 # Diretórios e arquivos
-SRCS = src/cub3d
+SRCS = src/cub3d.c
 OBJS = $(SRCS:.c=.o)
 
 # Diretório da libft

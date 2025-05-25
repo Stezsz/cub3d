@@ -6,14 +6,14 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/05/25 22:54:18 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:21:21 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <mlx/mlx.h>
+# include <mlx.h>
 # include <math.h>
 # include <stdbool.h>
 # include <stdlib.h>
