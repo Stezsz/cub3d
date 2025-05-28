@@ -6,7 +6,7 @@
 #    By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/25 22:04:15 by tborges-          #+#    #+#              #
-#    Updated: 2025/05/25 23:25:10 by tborges-         ###   ########.fr        #
+#    Updated: 2025/05/27 19:21:34 by tborges-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,18 +91,18 @@ NAME = cub3d
 
 # Compilador e flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I ./mlx -I ./libft -I /opt/X11/include
+CFLAGS = -Wall -Wextra -Werror -I ./inc/mlx -I ./inc/libft -I /opt/X11/include
 
 # Diretórios e arquivos
-SRCS = src/cub3d.c
+SRCS = src/cub3d.c src/player.c
 OBJS = $(SRCS:.c=.o)
 
 # Diretório da libft
-LIBFT_DIR = ./libft
+LIBFT_DIR = ./inc/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # Bibliotecas externas
-MLX_FLAGS = -L ./mlx -L /opt/X11/lib -lmlx -lXext -lX11 -lm
+MLX_FLAGS = -L ./inc/mlx -L /opt/X11/lib -lmlx -lXext -lX11 -lm
 
 # Regras
 all: $(LIBFT) $(NAME)
