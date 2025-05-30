@@ -6,11 +6,11 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:08:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/05/27 19:15:59 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:48:28 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../includes/cub3d.h"
 
 void	init_player(t_player *player)
 {
@@ -50,7 +50,9 @@ int	key_release(int keycode, t_player *player)
 
 void	move_player(t_player *player)
 {
-	int speed = 5;
+	int	speed;
+
+	speed = 5;
 	if (player->key_up)
 		player->y -= speed;
 	if (player->key_down)

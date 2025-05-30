@@ -21,9 +21,17 @@ SRCS	= ft_isascii.c ft_isprint.c ft_isalpha.c ft_isdigit.c ft_isalnum.c \
 			ft_memset.c ft_bzero.c ft_memcpy.c ft_striteri.c ft_memmove.c \
 			ft_memchr.c ft_memcmp.c ft_strdup.c ft_calloc.c ft_itoa.c \
 			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-			ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_strmapi.c \
-			get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
-OBJS	= $(SRCS:.c=.o)
+			ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_strmapi.c
+
+BONUS_SRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
+			ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
+			ft_lstmap.c
+
+GET_NEXT_LINE_SRCS = get_next_line/get_next_line.c \
+				get_next_line/get_next_line_utils.c
+
+ALL_SRCS = $(SRCS) $(BONUS_SRCS) $(GET_NEXT_LINE_SRCS)
+OBJS	= $(ALL_SRCS:.c=.o)
 
 FT_PRINTF_DIR = ft_printf
 FT_PRINTF_OBJS = $(FT_PRINTF_DIR)/*.o
@@ -31,17 +39,17 @@ FT_PRINTF_OBJS = $(FT_PRINTF_DIR)/*.o
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			ar -rcs $(NAME) $(OBJS)
-			$(MAKE) -C $(FT_PRINTF_DIR)
-			ar -rcs $(NAME) $(FT_PRINTF_OBJS)
+			@ar -rcs $(NAME) $(OBJS)
+			@$(MAKE) -C $(FT_PRINTF_DIR)
+			@ar -rcs $(NAME) $(FT_PRINTF_OBJS)
 
 clean:
-			rm -f $(OBJS)
-			$(MAKE) clean -C $(FT_PRINTF_DIR)
+			@rm -f $(OBJS)
+			@$(MAKE) clean -C $(FT_PRINTF_DIR)
 
 fclean:		clean
-			rm -f $(NAME)
-			$(MAKE) fclean -C $(FT_PRINTF_DIR)
+			@rm -f $(NAME)
+			@$(MAKE) fclean -C $(FT_PRINTF_DIR)
 
 re:			fclean all
 
