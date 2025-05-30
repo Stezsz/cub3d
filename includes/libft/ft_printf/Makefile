@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tborges- <tborges-@student.42.fr>          +#+  +:+       +#+         #
+#    By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/20 17:44:25 by tborges-          #+#    #+#              #
-#    Updated: 2024/10/31 11:43:39 by tborges-         ###   ########.fr        #
+#    Updated: 2025/05/30 23:03:35 by tborges-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,15 @@ SRCS = ft_printf.c prints1.c prints2.c prints3.c
 OBJS	= $(SRCS:.c=.o)
 
 $(NAME):	$(OBJS) $(INCLUDE)
-			ar -rcs $(NAME) $(OBJS)
+			@ar -rcs $(NAME) $(OBJS)
 
 all:		$(NAME)
 
 clean:
-			rm -f $(OBJS)
+			@rm -f $(OBJS)
 
 fclean:		clean
-			rm -f $(NAME)
+			@rm -f $(NAME)
 
 re:			fclean all
 

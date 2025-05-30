@@ -6,12 +6,17 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/05/29 19:59:16 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/05/30 23:24:48 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * [index] - blue
+ * [index + 1] - green
+ * [index + 2] - red
+ */
 void	put_pixel(int x, int y, int color, t_game *game)
 {
 	int	index;
@@ -19,9 +24,9 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
 	index = y * game->size_line + x * game->bpp / 8;
-	game->data[index] = color & 0xFF;             // Blue
-	game->data[index + 1] = (color >> 8) & 0xFF;  // Green
-	game->data[index + 2] = (color >> 16) & 0xFF; // Red
+	game->data[index] = color & 0xFF;
+	game->data[index + 1] = (color >> 8) & 0xFF;
+	game->data[index + 2] = (color >> 16) & 0xFF;
 }
 
 void	draw_square(int x, int y, int size, int color, t_game *game)

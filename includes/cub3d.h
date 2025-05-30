@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/05/27 19:20:07 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/05/30 23:31:05 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,32 @@
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
+	double		x;
+	double		y;
 
-	bool	key_up;
-	bool	key_down;
-	bool	key_left;
-	bool	key_right;
-}			t_player;
+	bool		key_up;
+	bool		key_down;
+	bool		key_left;
+	bool		key_right;
+}				t_player;
 
 typedef struct s_game
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
+	void		*mlx;
+	void		*win;
+	void		*img;
 
-	char	*data;
-	int		bpp;
-	int		size_line;
-	int		endian;
+	char		*data;
+	int			bpp;
+	int			size_line;
+	int			endian;
 
 	t_player	player;
-}			t_game;
+}				t_game;
 
-void		init_player(t_player *player);
-int			key_press(int keycode, t_player *player);
-int			key_release(int keycode, t_player *player);
-void		move_player(t_player *player);
+void			init_player(t_player *player);
+int				key_press(int keycode, t_player *player);
+int				key_release(int keycode, t_player *player);
+void			move_player(t_player *player);
 
 #endif
