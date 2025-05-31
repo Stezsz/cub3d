@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:08:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/05/30 18:48:28 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/05/31 11:24:05 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	init_player(t_player *player)
 {
-	player->x = WIDTH / 2.0;
-	player->y = HEIGHT / 2.0;
+	player->pos.x = WIDTH / 2;
+	player->pos.y = HEIGHT / 2;
+	player->angle = PI / 2;
 	player->key_up = false;
 	player->key_down = false;
-	player->key_left = false;
 	player->key_right = false;
+	player->key_left = false;
+	player->left_rotate = false;
+	player->right_rotate = false;
 }
 
 int	key_press(int keycode, t_player *player)
@@ -32,6 +35,10 @@ int	key_press(int keycode, t_player *player)
 		player->key_left = true;
 	else if (keycode == D)
 		player->key_right = true;
+	else if (keycode == LEFT)
+		player->left_rotate = true;
+	else if (keycode == RIGHT)
+		player->right_rotate = true;
 	return (0);
 }
 
@@ -45,20 +52,24 @@ int	key_release(int keycode, t_player *player)
 		player->key_left = false;
 	else if (keycode == D)
 		player->key_right = false;
+	else if (keycode == LEFT)
+		player->left_rotate = false;
+	else if (keycode == RIGHT)
+		player->right_rotate = false;
 	return (0);
 }
 
 void	move_player(t_player *player)
 {
-	int	speed;
+	int		speed;
+	float	angle_speed;
+	float	cos_angle;
+	float	sin_angle;
 
-	speed = 5;
-	if (player->key_up)
-		player->y -= speed;
-	if (player->key_down)
-		player->y += speed;
-	if (player->key_left)
-		player->x -= speed;
-	if (player->key_right)
-		player->x += speed;
+	speed = 3;
+	angle_speed = 0.03;
+	cos_angle = cos(player->angle);
+	sin_angle = sin(player->angle);
+	move_player_angle(player, angle_speed);
+	move_player_coordinates(player, cos_angle, sin_angle, speed);
 }
