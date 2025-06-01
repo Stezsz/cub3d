@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:33:36 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/01 23:27:09 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:31:55 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,26 @@ void	draw_map(t_game *game)
 	char		**map;
 	int			color;
 	t_ipoint	pos;
+	t_ipoint	p;
 
 	map = game->map;
 	color = 0x0000FF;
-	for (int y = 0; map[y]; y++)
-		for (int x = 0; map[y][x]; x++)
-			if (map[y][x] == '1')
+	p.y = 0;
+	while (map[p.y])
+	{
+		p.x = 0;
+		while (map[p.y][p.x])
+		{
+			if (map[p.y][p.x] == '1')
 			{
-				pos.x = x * BLOCK;
-				pos.y = y * BLOCK;
+				pos.x = p.x * BLOCK;
+				pos.y = p.y * BLOCK;
 				draw_square(pos, BLOCK, color, game);
 			}
+			p.x++;
+		}
+		p.y++;
+	}
 }
 
 void	draw_line(t_player *player, t_game *game, float start_x, int i)

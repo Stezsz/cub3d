@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:40:41 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/01 23:27:14 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:34:03 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,19 @@ void	put_pixel(int x, int y, int color, t_game *game)
 
 void	clear_image(t_game *game)
 {
-	for (int y = 0; y < HEIGHT; y++)
-		for (int x = 0; x < WIDTH; x++)
-			put_pixel(x, y, 0, game);
+	t_ipoint	p;
+
+	p.y = 0;
+	while (p.y < HEIGHT)
+	{
+		p.x = 0;
+		while (p.x < WIDTH)
+		{
+			put_pixel(p.x, p.y, 0, game);
+			p.x++;
+		}
+		p.y++;
+	}
 }
 
 void	draw_sqaure_aux(t_ipoint x_y, t_ipoint dx_dy, int len, int color,
