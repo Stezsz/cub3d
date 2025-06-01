@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/05/31 11:41:27 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:27:30 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int				draw_loop(t_game *game);
 // draw_aux.c
 void			put_pixel(int x, int y, int color, t_game *game);
 void			clear_image(t_game *game);
+void			draw_sqaure_aux(t_ipoint x_y, t_ipoint dx_dy, int len,
+					int color, t_game *game);
 
 // dist.c
 float			distance(float delta_x, float delta_y);

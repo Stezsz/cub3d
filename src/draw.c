@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:33:36 by tborges-          #+#    #+#             */
-/*   Updated: 2025/05/31 11:40:49 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:27:09 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 void	draw_square(t_ipoint pos, int size, int color, t_game *game)
 {
-	for (int i = 0; i < size; i++)
-		put_pixel(pos.x + i, pos.y, color, game);
-	for (int i = 0; i < size; i++)
-		put_pixel(pos.x, pos.y + i, color, game);
-	for (int i = 0; i < size; i++)
-		put_pixel(pos.x + size, pos.y + i, color, game);
-	for (int i = 0; i < size; i++)
-		put_pixel(pos.x + i, pos.y + size, color, game);
+	t_ipoint	dx_dy;
+
+	dx_dy.x = 1;
+	dx_dy.y = 0;
+	draw_sqaure_aux(pos, dx_dy, size, color, game);
+	dx_dy.x = 0;
+	dx_dy.y = 1;
+	draw_sqaure_aux(pos, dx_dy, size, color, game);
+	pos.x += size;
+	draw_sqaure_aux(pos, dx_dy, size, color, game);
+	dx_dy.x = 1;
+	dx_dy.y = 0;
+	pos.x -= size;
+	pos.y += size;
+	draw_sqaure_aux(pos, dx_dy, size, color, game);
 }
 
 void	draw_map(t_game *game)
