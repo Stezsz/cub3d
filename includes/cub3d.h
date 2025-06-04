@@ -6,7 +6,7 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/04 12:30:19 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:28:32 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
 
 typedef struct s_ipoint
 {
@@ -84,6 +85,25 @@ typedef struct s_draw
 	t_game		*game;
 }				t_draw;
 
+typedef struct s_map_errors
+{
+	int		current_fd;
+	int		inv_north;
+	int		inv_south;
+	int		inv_west;
+	int		inv_east;
+	int		inv_floor;
+	int		inv_ceiling;
+	char	*north_texture;
+	char	*south_texture;
+	char	*west_texture;
+	char	*east_texture;
+	int		floor_color;
+	int		ceiling_color;
+	char	*line_of_map;
+	char	**map;
+}				t_map_errors;
+
 // player.c
 void			init_player(t_player *player);
 int				key_release(int keycode, t_player *player);
@@ -116,5 +136,21 @@ bool			touch(t_fpoint pos, t_game *game);
 
 // free.c
 void			free_map(char **map);
+
+// parse.c
+t_map_errors	*parse_map(char *file);
+t_map_errors	*init_parser(void);
+int				insert_value(t_map_errors *errors, char *line, char *check,
+					int i);
+int				line_check(char **line, t_map_errors *map_errors);
+
+// parse2.c
+int				find_type(t_map_errors *errors, char *trim_line, char *check);
+void			inset_file(int *add_direc, char **dest, char*origin);
+int				find_color(char *origin, int i, int *grand_total);
+void			inset_color(int *add_color, int *dest, char*origin);
+
+// process_map.c
+void			process_map(t_map_errors *map_errors, char *file);
 
 #endif

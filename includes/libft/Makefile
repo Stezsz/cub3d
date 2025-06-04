@@ -36,21 +36,31 @@ OBJS	= $(ALL_SRCS:.c=.o)
 FT_PRINTF_DIR = ft_printf
 FT_PRINTF_OBJS = $(FT_PRINTF_DIR)/*.o
 
+GREEN		=	\033[92;5;118m
+YELLOW		=	\033[93;5;226m
+GRAY		=	\033[33;2;37m
+RESET		=	\033[0m
+CURSIVE		=	\033[33;3m
+
+%.o: %.c $(INCLUDE)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			@ar -rcs $(NAME) $(OBJS)
-			@$(MAKE) -C $(FT_PRINTF_DIR)
-			@ar -rcs $(NAME) $(FT_PRINTF_OBJS)
+	@ar -rcs $(NAME) $(OBJS)
+	@$(MAKE) -C $(FT_PRINTF_DIR)
+	@ar -rcs $(NAME) $(FT_PRINTF_OBJS)
 
 clean:
-			@rm -f $(OBJS)
-			@$(MAKE) clean -C $(FT_PRINTF_DIR)
+	@rm -f $(OBJS)
+	@$(MAKE) clean -C $(FT_PRINTF_DIR)
 
 fclean:		clean
-			@rm -f $(NAME)
-			@$(MAKE) fclean -C $(FT_PRINTF_DIR)
+	@rm -f $(NAME)
+	@$(MAKE) fclean -C $(FT_PRINTF_DIR)
 
 re:			fclean all
+
 
 .PHONY:		all clean fclean re

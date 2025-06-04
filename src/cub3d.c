@@ -6,35 +6,30 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/04 12:32:16 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:07:25 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-char	**get_map(void)
+void	init_game(t_game *game, char *map_path)
 {
-	char	**map;
+	t_map_errors	*parse_result;
 
-	map = malloc(sizeof(char *) * 11);
-	map[0] = ft_strdup("111111111111111");
-	map[1] = ft_strdup("100000000000001");
-	map[2] = ft_strdup("100000000000001");
-	map[3] = ft_strdup("100000100000001");
-	map[4] = ft_strdup("100000000000001");
-	map[5] = ft_strdup("100000010000001");
-	map[6] = ft_strdup("100001000000001");
-	map[7] = ft_strdup("100000000000001");
-	map[8] = ft_strdup("100000000000001");
-	map[9] = ft_strdup("111111111111111");
-	map[10] = NULL;
-	return (map);
-}
-
-void	init_game(t_game *game)
-{
 	init_player(&game->player);
-	game->map = get_map();
+	parse_result = parse_map(map_path);
+	if (!parse_result)
+	{
+		ft_putstr_fd("Erro ao fazer o parsing do mapa.\n", 2);
+		exit(1);
+	}
+	game->map = parse_result->map;
+	if (!game->map)
+	{
+		ft_putstr_fd("Erro ao carregar o mapa.\n", 2);
+		free(parse_result);
+		exit(1);
+	}
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
@@ -44,11 +39,18 @@ void	init_game(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_game	game;
 
-	init_game(&game);
+	if (ac != 2)
+	{
+		ft_putstr_fd("Usage: ./cub3d <map_file>\n", 2);
+		return (1);
+	}
+	init_game(&game, av[1]);
+	if (!game.map)
+		return (1);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game.player);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game.player);
 	mlx_hook(game.win, 17, 0, close_game, &game);
