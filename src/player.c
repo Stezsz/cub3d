@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:08:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/03 23:50:32 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:38:06 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,25 @@ void	init_player(t_player *player)
 	player->right_rotate = false;
 }
 
+int	close_game(void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+	if (game)
+	{
+		free_map(game->map);
+		if (game->img)
+			mlx_destroy_image(game->mlx, game->img);
+		if (game->win)
+			mlx_destroy_window(game->mlx, game->win);
+		if (game->mlx)
+			mlx_destroy_display(game->mlx);
+	}
+	exit(0);
+	return (0);
+}
+
 int	key_press(int keycode, t_player *player)
 {
 	if (keycode == W)
@@ -39,6 +58,8 @@ int	key_press(int keycode, t_player *player)
 		player->left_rotate = true;
 	else if (keycode == RIGHT)
 		player->right_rotate = true;
+	else if (keycode == 65307)
+		exit(0);
 	return (0);
 }
 

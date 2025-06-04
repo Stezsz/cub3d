@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/03 23:59:09 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:30:19 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define PI 3.14159265359
 
 # include "./mlx/mlx.h"
+# include "libft/libft.h"
 # include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -88,6 +89,7 @@ void			init_player(t_player *player);
 int				key_release(int keycode, t_player *player);
 int				key_press(int keycode, t_player *player);
 void			move_player(t_player *player);
+int				close_game(void *param);
 
 // player_aux.c
 void			move_player_angle(t_player *player, float angle_speed);
@@ -111,5 +113,8 @@ void			draw_square_aux(t_draw draw);
 float			distance(float delta_x, float delta_y);
 float			fixed_dist(t_fpoint p1, t_fpoint p2, t_game *game);
 bool			touch(t_fpoint pos, t_game *game);
+
+// free.c
+void			free_map(char **map);
 
 #endif
