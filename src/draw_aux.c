@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:40:41 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/01 23:34:03 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/06/03 23:59:26 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void	clear_image(t_game *game)
 	}
 }
 
-void	draw_sqaure_aux(t_ipoint x_y, t_ipoint dx_dy, int len, int color,
-		t_game *game)
+void	draw_square_aux(t_draw draw)
 {
 	int	i;
 
 	i = 0;
-	while (i < len)
+	while (i < draw.len)
 	{
-		put_pixel(x_y.x + dx_dy.x * i, x_y.y + dx_dy.y * i, color, game);
+		put_pixel(draw.x_y.x + draw.dx_dy.x * i, draw.x_y.y + draw.dx_dy.y * i,
+			draw.color, draw.game);
 		i++;
 	}
 }

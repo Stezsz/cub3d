@@ -6,7 +6,7 @@
 #    By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/25 22:04:15 by tborges-          #+#    #+#              #
-#    Updated: 2025/05/30 23:42:07 by tborges-         ###   ########.fr        #
+#    Updated: 2025/06/04 01:38:10 by tborges-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L./$(INC_DIR)/mlx -lmlx -lXext -lX11 -lm -lz
 RM = rm -f
 
-FILES = cub3d player
+FILES = cub3d player player_aux dist draw draw_aux
 
 SRC = $(addprefix $(SRC_DIR)/, $(FILES:=.c))
 OBJ = $(addprefix $(OBJDIR)/, $(notdir $(SRC:.c=.o)))
@@ -77,7 +77,7 @@ clean:
 	@printf "$(YELLOW)    - Object files removed.$(RESET)\n"
 	@$(MAKE) -C $(LIBFT_DIR) clean
 	@$(MAKE) -C $(MLX_DIR) clean
-	@rmdir --ignore-fail-on-non-empty $(OBJDIR)
+	@rm -rf $(OBJDIR)
 
 norm:
 	@printf "$(CURSIVE)$(GRAY)  - Running norminette (excluding mlx)...$(RESET)\n"
