@@ -6,7 +6,7 @@
 #    By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/25 22:04:15 by tborges-          #+#    #+#              #
-#    Updated: 2025/06/05 17:17:05 by strodrig         ###   ########.fr        #
+#    Updated: 2025/06/05 17:35:53 by strodrig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ libft:
 
 mlx:
 	@printf "$(CURSIVE)$(GRAY) 	- Making mlx... $(RESET)\n"
+	@chmod +x $(MLX_DIR)/configure
 	@$(MAKE) -C $(MLX_DIR)
 	@printf "$(GREEN)    - Mlx ready.\n$(RESET)"
 
@@ -64,6 +65,7 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX):
+	@chmod +x $(MLX_DIR)/configure
 	@$(MAKE) -C $(MLX_DIR)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
