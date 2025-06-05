@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_aux.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:40:41 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/03 23:59:26 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:59:57 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,32 @@ void	draw_square_aux(t_draw draw)
 		put_pixel(draw.x_y.x + draw.dx_dy.x * i, draw.x_y.y + draw.dx_dy.y * i,
 			draw.color, draw.game);
 		i++;
+	}
+}
+
+int	determine_wall_side(t_fpoint ray_start, t_fpoint wall_hit)
+{
+	t_ipoint	map_pos;
+	float		dx;
+	float		dy;
+
+	(void)ray_start;
+	map_pos.x = wall_hit.x / BLOCK;
+	map_pos.y = wall_hit.y / BLOCK;
+	dx = wall_hit.x - (map_pos.x * BLOCK + BLOCK / 2);
+	dy = wall_hit.y - (map_pos.y * BLOCK + BLOCK / 2);
+	if (fabs(dx) > fabs(dy))
+	{
+		if (dx > 0)
+			return (2);
+		else
+			return (3);
+	}
+	else
+	{
+		if (dy > 0)
+			return (1);
+		else
+			return (0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/04 16:07:25 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:32:00 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	init_game(t_game *game, char *map_path)
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line,
 			&game->endian);
+	game->parsed = parse_result;
+	load_textures(game, parse_result);
 	ft_bzero(game->data, HEIGHT * game->size_line);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }

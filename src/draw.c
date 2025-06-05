@@ -3,66 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:33:36 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/04 01:43:09 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:59:22 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	draw_square(t_ipoint pos, int size, int color, t_game *game)
+void	draw_textured_line(t_player *player, t_game *game, float start_x, int i)
 {
-	t_draw	draw;
+	t_fpoint		ray;
+	t_raycasting	ray_data;
 
-	draw.x_y = pos;
-	draw.len = size;
-	draw.color = color;
-	draw.game = game;
-	draw.dx_dy.x = 1;
-	draw.dx_dy.y = 0;
-	draw_square_aux(draw);
-	draw.dx_dy.x = 0;
-	draw.dx_dy.y = 1;
-	draw_square_aux(draw);
-	draw.x_y.x += size;
-	draw_square_aux(draw);
-	draw.dx_dy.x = 1;
-	draw.dx_dy.y = 0;
-	draw.x_y.x -= size;
-	draw.x_y.y += size;
-	draw_square_aux(draw);
-}
-
-void	draw_map(t_game *game)
-{
-	char		**map;
-	int			color;
-	t_ipoint	pos;
-	t_ipoint	p;
-
-	map = game->map;
-	color = 0x0000FF;
-	p.y = 0;
-	while (map[p.y])
+	cast_ray(&ray, player, start_x, game);
+	if (!DEBUG)
 	{
-		p.x = 0;
-		while (map[p.y][p.x])
-		{
-			if (map[p.y][p.x] == '1')
-			{
-				pos.x = p.x * BLOCK;
-				pos.y = p.y * BLOCK;
-				draw_square(pos, BLOCK, color, game);
-			}
-			p.x++;
-		}
-		p.y++;
+		process_ray_casting(&ray_data, player, ray, game);
+		draw_textured_wall_section(game, &ray_data, i);
 	}
 }
 
-void	draw_line(t_player *player, t_game *game, float start_x, int i)
+void	draw_simple_line(t_player *player, t_game *game, float start_x, int i)
 {
 	t_fpoint	ray;
 	float		dist;
@@ -70,14 +33,7 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 	int			end;
 	float		height;
 
-	ray = player->pos;
-	while (!touch(ray, game))
-	{
-		if (DEBUG)
-			put_pixel(ray.x, ray.y, 0xFF0000, game);
-		ray.x += cos(start_x);
-		ray.y += sin(start_x);
-	}
+	cast_ray(&ray, player, start_x, game);
 	if (!DEBUG)
 	{
 		dist = fixed_dist(player->pos, ray, game);
@@ -89,16 +45,18 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 	}
 }
 
-int	draw_loop(t_game *game)
+void	draw_line(t_player *player, t_game *game, float start_x, int i)
 {
-	t_player	*player;
-	float		start_x;
-	int			i;
+	if (game->textures && game->textures->north)
+		draw_textured_line(player, game, start_x, i);
+	else
+		draw_simple_line(player, game, start_x, i);
+}
+
+void	draw_debug_elements(t_game *game, t_player *player)
+{
 	t_ipoint	player_square;
 
-	player = &game->player;
-	move_player(player);
-	clear_image(game);
 	if (DEBUG)
 	{
 		player_square.x = player->pos.x;
@@ -106,6 +64,13 @@ int	draw_loop(t_game *game)
 		draw_square(player_square, 10, 0x00FF00, game);
 		draw_map(game);
 	}
+}
+
+void	draw_rays(t_game *game, t_player *player)
+{
+	float	start_x;
+	int		i;
+
 	start_x = player->angle - PI / 6;
 	i = 0;
 	while (i < WIDTH)
@@ -113,6 +78,4 @@ int	draw_loop(t_game *game)
 		draw_line(player, game, start_x, i++);
 		start_x += PI / 3 / WIDTH;
 	}
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-	return (0);
 }

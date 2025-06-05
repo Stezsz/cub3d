@@ -6,7 +6,7 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/04 16:28:32 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:17:03 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,46 @@ typedef struct s_fpoint
 	float		y;
 }				t_fpoint;
 
+typedef struct s_texture
+{
+	void		*img;
+	char		*data;
+	int			width;
+	int			height;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_texture;
+
+typedef struct s_textures
+{
+	t_texture	*north;
+	t_texture	*south;
+	t_texture	*east;
+	t_texture	*west;
+	t_texture	*sky;
+	t_texture	*portal_gun;
+}				t_textures;
+
+typedef struct s_map_errors
+{
+	int			current_fd;
+	int			inv_north;
+	int			inv_south;
+	int			inv_west;
+	int			inv_east;
+	int			inv_floor;
+	int			inv_ceiling;
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	int			floor_color;
+	int			ceiling_color;
+	char		*line_of_map;
+	char		**map;
+}				t_map_errors;
+
 typedef struct s_player
 {
 	t_fpoint	pos;
@@ -63,17 +103,20 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
+	void			*mlx;
+	void			*win;
+	void			*img;
 
-	char		*data;
-	int			bpp;
-	int			size_line;
-	int			endian;
-	t_player	player;
+	char			*data;
+	int				bpp;
+	int				size_line;
+	int				endian;
+	t_player		player;
 
-	char		**map;
+	char			**map;
+	t_map_errors	*parsed;
+	t_textures		*textures;
+	float			sky_offset_x;
 }				t_game;
 
 typedef struct s_draw
@@ -85,24 +128,42 @@ typedef struct s_draw
 	t_game		*game;
 }				t_draw;
 
-typedef struct s_map_errors
+typedef struct s_portal_gun
 {
-	int		current_fd;
-	int		inv_north;
-	int		inv_south;
-	int		inv_west;
-	int		inv_east;
-	int		inv_floor;
-	int		inv_ceiling;
-	char	*north_texture;
-	char	*south_texture;
-	char	*west_texture;
-	char	*east_texture;
-	int		floor_color;
-	int		ceiling_color;
-	char	*line_of_map;
-	char	**map;
-}				t_map_errors;
+	char		*gun_data;
+	int			gun_width;
+	int			gun_height;
+	int			x_start;
+	int			y_start;
+	int			x;
+	int			y;
+	int			color;
+}				t_portal_gun;
+
+typedef struct s_raycasting
+{
+	t_fpoint	ray;
+	float		dist;
+	int			wall_side;
+	t_texture	*wall_texture;
+	float		wall_hit_x;
+	int			tex_x;
+	int			tex_y;
+	float		tex_step;
+	float		tex_pos;
+	float		wall_height;
+	int			wall_start;
+	int			wall_end;
+}				t_raycasting;
+
+typedef struct s_wall_data
+{
+	t_game			*game;
+	int				x;
+	int				wall_start;
+	int				wall_end;
+	t_raycasting	*ray;
+}				t_wall_data;
 
 // player.c
 void			init_player(t_player *player);
@@ -121,13 +182,28 @@ void			put_pixel(int x, int y, int color, t_game *game);
 void			clear_image(t_game *game);
 void			draw_square(t_ipoint pos, int size, int color, t_game *game);
 void			draw_map(t_game *game);
-void			draw_line(t_player *player, t_game *game, float start_x, int i);
+void			cast_ray(t_fpoint *ray, t_player *player, float angle,
+					t_game *game);
+void			draw_textured_line(t_player *player, t_game *game,
+					float start_x, int i);
+void			draw_simple_line(t_player *player, t_game *game,
+					float start_x, int i);
+void			draw_line(t_player *player, t_game *game, float start_x,
+					int i);
+void			draw_debug_elements(t_game *game, t_player *player);
+void			draw_rays(t_game *game, t_player *player);
 int				draw_loop(t_game *game);
 
 // draw_aux.c
-void			put_pixel(int x, int y, int color, t_game *game);
-void			clear_image(t_game *game);
 void			draw_square_aux(t_draw draw);
+int				determine_wall_side(t_fpoint ray_start, t_fpoint wall_hit);
+float			calculate_wall_hit_x(t_fpoint wall_hit, int wall_side);
+void			draw_white_wall(t_game *game, int i, int wall_start,
+					int wall_end);
+void			process_ray_casting(t_raycasting *ray_data, t_player *player,
+					t_fpoint ray, t_game *game);
+void			draw_textured_wall_section(t_game *game,
+					t_raycasting *ray_data, int i);
 
 // dist.c
 float			distance(float delta_x, float delta_y);
@@ -152,5 +228,26 @@ void			inset_color(int *add_color, int *dest, char*origin);
 
 // process_map.c
 void			process_map(t_map_errors *map_errors, char *file);
+
+// textures.c
+void			init_textures(t_game *g);
+void			load_wall_textures(t_game *g, t_map_errors *parsed);
+void			load_textures(t_game *g, t_map_errors *parsed);
+void			destroy_textures(t_game *g);
+
+// textures2.c
+void			put_sky(t_game *g);
+void			put_portal_gun(t_game *g);
+void			create_floor_ceiling(t_game *g, int x, int wall_start,
+					int wall_end);
+
+// raycasting.c
+t_texture		*get_wall_texture(t_game *game, int wall_side);
+void			calculate_texture_coordinates(t_raycasting *ray, t_game *game,
+					int x);
+int				get_texture_color(t_texture *texture, int tex_x, int tex_y);
+
+// raycasting2.c
+void			draw_textured_wall(t_wall_data *data);
 
 #endif
