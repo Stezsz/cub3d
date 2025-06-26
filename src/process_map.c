@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:57 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/04 16:07:57 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/06/26 22:40:04 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,44 @@ static void	read_map_lines(t_map_errors *map_errors, char *file, int map_lines)
 	close(fd);
 }
 
+bool	is_wall_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '1' && line[i] != ' ' && line[i] != '\n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+bool	has_wall_borders(char **map)
+{
+	int	i;
+	int	len;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] == ' ')
+			j++;
+		if (map[i][j] != '1')
+			return (false);
+		len = ft_strlen(map[i]);
+		while (len > 0 && (map[i][len - 1] == ' ' || map[i][len - 1] == '\n'))
+			len--;
+		if (len == 0 || map[i][len - 1] != '1')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 void	process_map(t_map_errors *map_errors, char *file)
 {
 	int	map_lines;
@@ -72,4 +110,9 @@ void	process_map(t_map_errors *map_errors, char *file)
 	if (!map_errors->map)
 		return ;
 	read_map_lines(map_errors, file, map_lines);
+	if (!validate_map_walls(map_errors->map))
+	{
+		ft_putstr_fd("Error\nNot surrounded by walls\n", 2);
+		exit(1);
+	}
 }
