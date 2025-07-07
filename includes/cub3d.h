@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/26 22:51:20 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/07 19:34:43 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,12 +229,12 @@ int					find_color(char *origin, int i, int *grand_total);
 void				inset_color(int *add_color, int *dest, char *origin);
 
 // process_map.c
-bool				is_wall_line(char *line);
-bool				has_wall_borders(char **map);
 void				process_map(t_map_errors *map_errors, char *file);
 
 // process_map2.c
 bool				validate_map_walls(char **map);
+int					get_max_map_width(char **map);
+void				normalize_map(char **map);
 
 // textures.c
 void				init_textures(t_game *g);
