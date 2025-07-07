@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:09:48 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/05 17:09:48 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:46:34 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	draw_textured_wall(t_wall_data *data)
 		draw_fallback_wall(data);
 		return ;
 	}
-	wall_height = data->wall_end - data->wall_start;
+	wall_height = data->ray->wall_height;
 	if (wall_height <= 0)
 		return ;
 	init_texture_params(data, wall_height);
