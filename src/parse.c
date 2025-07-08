@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:00:38 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/04 14:00:38 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/09 00:21:14 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ t_map_errors	*parse_map(char *file)
 	if (map_errors->current_fd < 0)
 	{
 		free(map_errors);
-		perror("Error\nFile not found\n");
-		return (NULL);
+		perror("Error\nFile not found");
+		exit(EXIT_FAILURE);
 	}
 	while (1)
 		if (line_check(&line, map_errors) == EXIT_FAILURE)

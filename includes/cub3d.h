@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/07 19:34:43 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/09 00:21:45 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,8 +233,10 @@ void				process_map(t_map_errors *map_errors, char *file);
 
 // process_map2.c
 bool				validate_map_walls(char **map);
-int					get_max_map_width(char **map);
-void				normalize_map(char **map);
+
+// process_map3.c
+bool				is_wall_line(const char *line);
+void				debug_print_map(char **map);
 
 // textures.c
 void				init_textures(t_game *g);
