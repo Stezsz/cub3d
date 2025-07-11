@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/05 16:32:00 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/11 21:45:00 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	init_game(t_game *game, char *map_path)
 {
 	t_map_errors	*parse_result;
 
-	init_player(&game->player);
 	parse_result = parse_map(map_path);
 	if (!parse_result)
 	{
@@ -30,6 +29,7 @@ void	init_game(t_game *game, char *map_path)
 		free(parse_result);
 		exit(1);
 	}
+	init_player_from_map(&game->player, game->map);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);

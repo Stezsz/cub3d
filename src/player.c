@@ -3,46 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:08:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/05 17:06:31 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/11 21:53:00 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	init_player(t_player *player)
-{
-	player->pos.x = WIDTH / 2;
-	player->pos.y = HEIGHT / 2;
-	player->angle = PI / 2;
-	player->key_up = false;
-	player->key_down = false;
-	player->key_right = false;
-	player->key_left = false;
-	player->left_rotate = false;
-	player->right_rotate = false;
-}
-
-int	key_press(int keycode, t_player *player)
-{
-	if (keycode == W)
-		player->key_up = true;
-	else if (keycode == S)
-		player->key_down = true;
-	else if (keycode == A)
-		player->key_left = true;
-	else if (keycode == D)
-		player->key_right = true;
-	else if (keycode == LEFT)
-		player->left_rotate = true;
-	else if (keycode == RIGHT)
-		player->right_rotate = true;
-	else if (keycode == 65307)
-		exit(0);
-	return (0);
-}
 
 int	key_release(int keycode, t_player *player)
 {
@@ -74,4 +42,23 @@ void	move_player(t_player *player)
 	sin_angle = sin(player->angle);
 	move_player_angle(player, angle_speed);
 	move_player_coordinates(player, cos_angle, sin_angle, speed);
+}
+
+int	key_press(int keycode, t_player *player)
+{
+	if (keycode == W)
+		player->key_up = true;
+	else if (keycode == S)
+		player->key_down = true;
+	else if (keycode == A)
+		player->key_left = true;
+	else if (keycode == D)
+		player->key_right = true;
+	else if (keycode == LEFT)
+		player->left_rotate = true;
+	else if (keycode == RIGHT)
+		player->right_rotate = true;
+	else if (keycode == 65307)
+		exit(0);
+	return (0);
 }
