@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/11 22:15:17 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:41:33 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ int					close_game(void *param);
 
 // player3.c
 void				init_player_from_map(t_player *player, char **map);
-
 
 // player_aux.c
 void				move_player_coordinates(t_player *player,
