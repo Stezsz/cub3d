@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:08:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/11 21:53:00 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:13:52 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ int	key_release(int keycode, t_player *player)
 	return (0);
 }
 
-void	move_player(t_player *player)
+void	move_player(t_player *player, t_game *game)
 {
-	int		speed;
-	float	angle_speed;
-	float	cos_angle;
-	float	sin_angle;
+	int				speed;
+	float			angle_speed;
+	t_move_params	params;
 
 	speed = 3;
 	angle_speed = 0.03;
-	cos_angle = cos(player->angle);
-	sin_angle = sin(player->angle);
+	params.cos_angle = cos(player->angle);
+	params.sin_angle = sin(player->angle);
+	params.speed = speed;
 	move_player_angle(player, angle_speed);
-	move_player_coordinates(player, cos_angle, sin_angle, speed);
+	move_player_coordinates(player, params, game);
 }
 
 int	key_press(int keycode, t_player *player)
@@ -61,4 +61,16 @@ int	key_press(int keycode, t_player *player)
 	else if (keycode == 65307)
 		exit(0);
 	return (0);
+}
+
+void	move_player_angle(t_player *player, float angle_speed)
+{
+	if (player->left_rotate)
+		player->angle -= angle_speed;
+	if (player->right_rotate)
+		player->angle += angle_speed;
+	if (player->angle > 2 * PI)
+		player->angle = 0;
+	if (player->angle < 0)
+		player->angle = 2 * PI;
 }

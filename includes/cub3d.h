@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/11 21:54:23 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:15:17 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ typedef struct s_fpoint
 	float			x;
 	float			y;
 }					t_fpoint;
+
+typedef struct s_move_params
+{
+	float			cos_angle;
+	float			sin_angle;
+	int				speed;
+}					t_move_params;
 
 typedef struct s_texture
 {
@@ -165,19 +172,22 @@ typedef struct s_wall_data
 	t_raycasting	*ray;
 }					t_wall_data;
 
-// player3.c
-void				init_player_from_map(t_player *player, char **map);
-
 // player.c
 int					key_release(int keycode, t_player *player);
 int					key_press(int keycode, t_player *player);
-void				move_player(t_player *player);
+void				move_player(t_player *player, t_game *game);
+void				move_player_angle(t_player *player, float angle_speed);
+
+//player2.c
 int					close_game(void *param);
 
+// player3.c
+void				init_player_from_map(t_player *player, char **map);
+
+
 // player_aux.c
-void				move_player_angle(t_player *player, float angle_speed);
-void				move_player_coordinates(t_player *player, float cos_angle,
-						float sin_angle, int speed);
+void				move_player_coordinates(t_player *player,
+						t_move_params params, t_game *game);
 
 // draw.c
 void				put_pixel(int x, int y, int color, t_game *game);

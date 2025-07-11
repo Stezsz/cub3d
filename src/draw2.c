@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:59:02 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/05 16:59:02 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:09:02 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	draw_loop(t_game *game)
 	t_player	*player;
 
 	player = &game->player;
-	move_player(player);
+	move_player(player, game);
 	clear_image(game);
 	if (!DEBUG && game->textures && game->textures->sky)
 		put_sky(game);

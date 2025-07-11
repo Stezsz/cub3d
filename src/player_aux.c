@@ -3,48 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   player_aux.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:23:54 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/05 16:18:03 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:13:48 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	move_player_angle(t_player *player, float angle_speed)
+static bool	is_valid_position(t_fpoint new_pos, t_game *game)
 {
-	if (player->left_rotate)
-		player->angle -= angle_speed;
-	if (player->right_rotate)
-		player->angle += angle_speed;
-	if (player->angle > 2 * PI)
-		player->angle = 0;
-	if (player->angle < 0)
-		player->angle = 2 * PI;
+	return (!touch(new_pos, game));
 }
 
-void	move_player_coordinates(t_player *player, float cos_angle,
-		float sin_angle, int speed)
+static void	try_move_forward(t_player *player, t_move_params params,
+		t_game *game)
 {
+	t_fpoint	new_pos;
+
 	if (player->key_up)
 	{
-		player->pos.x += cos_angle * speed;
-		player->pos.y += sin_angle * speed;
+		new_pos.x = player->pos.x + params.cos_angle * params.speed;
+		new_pos.y = player->pos.y + params.sin_angle * params.speed;
+		if (is_valid_position(new_pos, game))
+		{
+			player->pos.x = new_pos.x;
+			player->pos.y = new_pos.y;
+		}
 	}
+}
+
+static void	try_move_backward(t_player *player, t_move_params params,
+		t_game *game)
+{
+	t_fpoint	new_pos;
+
 	if (player->key_down)
 	{
-		player->pos.x -= cos_angle * speed;
-		player->pos.y -= sin_angle * speed;
+		new_pos.x = player->pos.x - params.cos_angle * params.speed;
+		new_pos.y = player->pos.y - params.sin_angle * params.speed;
+		if (is_valid_position(new_pos, game))
+		{
+			player->pos.x = new_pos.x;
+			player->pos.y = new_pos.y;
+		}
 	}
+}
+
+static void	try_move_sideways(t_player *player, t_move_params params,
+		t_game *game)
+{
+	t_fpoint	new_pos;
+
 	if (player->key_left)
 	{
-		player->pos.x += sin_angle * speed;
-		player->pos.y -= cos_angle * speed;
+		new_pos.x = player->pos.x + params.sin_angle * params.speed;
+		new_pos.y = player->pos.y - params.cos_angle * params.speed;
+		if (is_valid_position(new_pos, game))
+		{
+			player->pos.x = new_pos.x;
+			player->pos.y = new_pos.y;
+		}
 	}
 	if (player->key_right)
 	{
-		player->pos.x -= sin_angle * speed;
-		player->pos.y += cos_angle * speed;
+		new_pos.x = player->pos.x - params.sin_angle * params.speed;
+		new_pos.y = player->pos.y + params.cos_angle * params.speed;
+		if (is_valid_position(new_pos, game))
+		{
+			player->pos.x = new_pos.x;
+			player->pos.y = new_pos.y;
+		}
 	}
+}
+
+void	move_player_coordinates(t_player *player, t_move_params params,
+		t_game *game)
+{
+	try_move_forward(player, params, game);
+	try_move_backward(player, params, game);
+	try_move_sideways(player, params, game);
 }
