@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/23 22:02:12 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:28:32 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ typedef struct s_wall_data
 
 // player.c
 int					key_release(int keycode, t_player *player);
-int					key_press(int keycode, t_player *player);
+int					key_press(int keycode, t_game *game);
 void				move_player(t_player *player, t_game *game);
 void				move_player_angle(t_player *player, float angle_speed);
 
