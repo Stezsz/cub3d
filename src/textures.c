@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:08:59 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/05 16:30:00 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:26:01 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Initializes the textures structure in the game.
+ * Allocates memory for the textures and initializes them.
+ */
 void	init_textures(t_game *g)
 {
 	g->textures = malloc(sizeof(t_textures));
@@ -35,6 +39,10 @@ void	init_textures(t_game *g)
 	}
 }
 
+/**
+ * Loads the wall textures from the map errors structure.
+ * Uses the mlx_xpm_file_to_image function to load the textures.
+ */
 void	load_textures(t_game *g, t_map_errors *parsed)
 {
 	init_textures(g);
@@ -59,6 +67,9 @@ void	load_textures(t_game *g, t_map_errors *parsed)
 	g->sky_offset_x = 0;
 }
 
+/**
+ * Destroys the texture images in the game.
+ */
 static void	destroy_texture_images(t_game *g)
 {
 	if (g->textures->north && g->textures->north->img)
@@ -75,6 +86,11 @@ static void	destroy_texture_images(t_game *g)
 		mlx_destroy_image(g->mlx, g->textures->portal_gun->img);
 }
 
+/**
+ * Frees the texture structures in the game.
+ * This function frees each texture and then the textures structure
+ * itself.
+ */
 static void	free_texture_structures(t_game *g)
 {
 	if (g->textures->north)
@@ -91,6 +107,11 @@ static void	free_texture_structures(t_game *g)
 		free(g->textures->portal_gun);
 }
 
+/**
+ * Destroys all textures in the game.
+ * This function is called when the game is closed or when textures
+ * need to be reloaded.
+ */
 void	destroy_textures(t_game *g)
 {
 	if (!g->textures)

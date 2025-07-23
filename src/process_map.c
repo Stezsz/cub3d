@@ -6,12 +6,15 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:57 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/09 00:04:08 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:10:29 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Counts the number of lines in the map file.
+ */
 static int	count_map_lines(char *file)
 {
 	int		fd;
@@ -39,6 +42,9 @@ static int	count_map_lines(char *file)
 	return (map_lines);
 }
 
+/**
+ * Reads the map lines from the file and stores them in the map_errors structure.
+ */
 static void	read_map_lines_aux(char *line, t_map_errors *map_errors, int *i,
 		bool *map_started)
 {
@@ -52,6 +58,9 @@ static void	read_map_lines_aux(char *line, t_map_errors *map_errors, int *i,
 	}
 }
 
+/**
+ * Reads the map lines from the file and stores them in the map_errors structure.
+ */
 static void	read_map_lines(t_map_errors *map_errors, char *file, int map_lines)
 {
 	int		fd;
@@ -77,6 +86,9 @@ static void	read_map_lines(t_map_errors *map_errors, char *file, int map_lines)
 	close(fd);
 }
 
+/**
+ * Processes the map by reading its lines and validating its structure.
+ */
 void	process_map(t_map_errors *map_errors, char *file)
 {
 	int	map_lines;

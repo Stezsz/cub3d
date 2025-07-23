@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:09:29 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/05 16:25:00 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:19:17 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Gets the wall texture for a specific side.
+ */
 t_texture	*get_wall_texture(t_game *game, int wall_side)
 {
 	if (!game->textures)
@@ -27,6 +30,9 @@ t_texture	*get_wall_texture(t_game *game, int wall_side)
 	return (game->textures->north);
 }
 
+/**
+ * Calculates the texture coordinates for the current ray.
+ */
 void	calculate_texture_coordinates(t_raycasting *ray, t_game *game, int x)
 {
 	(void)game;
@@ -40,6 +46,9 @@ void	calculate_texture_coordinates(t_raycasting *ray, t_game *game, int x)
 		ray->tex_x = ray->wall_texture->width - 1;
 }
 
+/**
+ * Draws a textured wall section based on the raycasting data.
+ */
 int	get_texture_color(t_texture *texture, int tex_x, int tex_y)
 {
 	if (!texture || !texture->data)

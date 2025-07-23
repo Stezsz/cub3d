@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   draw_aux2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:59:42 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/05 16:59:42 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:35:18 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Calculates the X coordinate of the wall hit point.
+ */
 float	calculate_wall_hit_x(t_fpoint wall_hit, int wall_side)
 {
 	t_ipoint	map_pos;
@@ -36,6 +39,9 @@ float	calculate_wall_hit_x(t_fpoint wall_hit, int wall_side)
 	return (wall_x);
 }
 
+/**
+ * Draws a white wall section on the screen.
+ */
 void	draw_white_wall(t_game *game, int i, int wall_start, int wall_end)
 {
 	int	y;
@@ -48,6 +54,9 @@ void	draw_white_wall(t_game *game, int i, int wall_start, int wall_end)
 	}
 }
 
+/**
+ * Processes the ray casting for a given ray.
+ */
 void	process_ray_casting(t_raycasting *ray_data, t_player *player,
 	t_fpoint ray, t_game *game)
 {
@@ -66,6 +75,9 @@ void	process_ray_casting(t_raycasting *ray_data, t_player *player,
 		ray_data->wall_end = HEIGHT - 1;
 }
 
+/**
+ * Draws a textured wall section on the screen.
+ */
 void	draw_textured_wall_section(t_game *game, t_raycasting *ray_data, int i)
 {
 	t_wall_data	wall_data;

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   draw_aux.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:40:41 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/05 16:59:57 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:18:53 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 /**
- * [index] - blue
- * [index + 1] - green
- * [index + 2] - red
+ * [index] -> blue
+ * [index + 1] -> green
+ * [index + 2] -> red
  */
 void	put_pixel(int x, int y, int color, t_game *game)
 {
@@ -29,6 +29,9 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	game->data[index + 2] = (color >> 16) & 0xFF;
 }
 
+/**
+ * Clears the image by setting all pixels to black.
+ */
 void	clear_image(t_game *game)
 {
 	t_ipoint	p;
@@ -46,6 +49,9 @@ void	clear_image(t_game *game)
 	}
 }
 
+/**
+ * Auxiliary function that draws a square on the screen.
+ */
 void	draw_square_aux(t_draw draw)
 {
 	int	i;
@@ -59,6 +65,11 @@ void	draw_square_aux(t_draw draw)
 	}
 }
 
+/**
+ * Determines which side of the wall was hit by the ray.
+ * fabs is to compare the absolute values of floats.
+ * 0 = north, 1 = south, 2 = east, 3 = west.
+ */
 int	determine_wall_side(t_fpoint ray_start, t_fpoint wall_hit)
 {
 	t_ipoint	map_pos;

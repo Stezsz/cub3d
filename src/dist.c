@@ -6,17 +6,25 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:38:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/11 21:45:04 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:29:20 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Calculates the distance between two points in 2D space.
+ */
 float	distance(float delta_x, float delta_y)
 {
 	return (sqrt(delta_x * delta_x + delta_y * delta_y));
 }
 
+/**
+ * Calculates the fixed distance between two points in the game world.
+ * To avoid the fisht eye effect, we need to take the player's angle
+ * into account.
+ */
 float	fixed_dist(t_fpoint p1, t_fpoint p2, t_game *game)
 {
 	float	delta_x;
@@ -31,6 +39,9 @@ float	fixed_dist(t_fpoint p1, t_fpoint p2, t_game *game)
 	return (fix_dist);
 }
 
+/**
+ * Checks if a point touches a wall in the game map.
+ */
 bool	touch(t_fpoint pos, t_game *game)
 {
 	t_ipoint	map_pos;

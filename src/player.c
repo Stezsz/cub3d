@@ -6,12 +6,15 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 19:08:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/11 22:13:52 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:16:52 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Handles key release events for the player.
+ */
 int	key_release(int keycode, t_player *player)
 {
 	if (keycode == W)
@@ -29,6 +32,9 @@ int	key_release(int keycode, t_player *player)
 	return (0);
 }
 
+/**
+ * Moves the player based on the current input and game state.
+ */
 void	move_player(t_player *player, t_game *game)
 {
 	int				speed;
@@ -44,8 +50,14 @@ void	move_player(t_player *player, t_game *game)
 	move_player_coordinates(player, params, game);
 }
 
-int	key_press(int keycode, t_player *player)
+/**
+ * Handles key press events for the player.
+ */
+int	key_press(int keycode, t_game *game)
 {
+	t_player	*player;
+
+	player = &game->player;
 	if (keycode == W)
 		player->key_up = true;
 	else if (keycode == S)
@@ -58,11 +70,14 @@ int	key_press(int keycode, t_player *player)
 		player->left_rotate = true;
 	else if (keycode == RIGHT)
 		player->right_rotate = true;
-	else if (keycode == 65307)
-		exit(0);
+	else if (keycode == ESC)
+		close_game(game);
 	return (0);
 }
 
+/**
+ * Moves the player based on the current input and game state.
+ */
 void	move_player_angle(t_player *player, float angle_speed)
 {
 	if (player->left_rotate)

@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parse2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 15:34:13 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/04 15:34:13 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:45:38 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Checks the type of the line and inserts the corresponding file or color.
+ */
 int	find_type(t_map_errors *errors, char *trim_line, char *check)
 {
 	if (ft_strncmp(check, "NO", 3) == 0)
@@ -31,12 +34,19 @@ int	find_type(t_map_errors *errors, char *trim_line, char *check)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * Inserts the file path into the corresponding texture pointer.
+ * Increments the counter for the number of textures found.
+ */
 void	inset_file(int *add_direc, char **dest, char*origin)
 {
 	*add_direc += 1;
 	*dest = ft_strdup(origin);
 }
 
+/**
+ * Finds the color value from the given string.
+ */
 int	find_color(char *origin, int i, int *grand_total)
 {
 	int	total;
@@ -64,6 +74,10 @@ int	find_color(char *origin, int i, int *grand_total)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * Inserts the color value into the corresponding color pointer.
+ * Increments the counter for the number of colors found.
+ */
 void	inset_color(int *add_color, int *dest, char*origin)
 {
 	int	i;

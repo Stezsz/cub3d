@@ -6,12 +6,16 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:00:38 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/09 00:21:14 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:42:00 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Initializes the parser for the map.
+ * Allocates memory for the t_map_errors structure and initializes its fields.
+ */
 t_map_errors	*init_parser(void)
 {
 	t_map_errors	*map_errors;
@@ -33,6 +37,9 @@ t_map_errors	*init_parser(void)
 	return (map_errors);
 }
 
+/**
+ * Inserts a value into the map_errors structure.
+ */
 int	insert_value(t_map_errors *errors, char *line, char *check, int i)
 {
 	int		test;
@@ -58,6 +65,9 @@ int	insert_value(t_map_errors *errors, char *line, char *check, int i)
 	return (free(trim_line), EXIT_SUCCESS);
 }
 
+/**
+ * Checks a line for validity and updates the map_errors structure.
+ */
 int	line_check(char **line, t_map_errors *map_errors)
 {
 	int	i;
@@ -87,6 +97,9 @@ int	line_check(char **line, t_map_errors *map_errors)
 	return (EXIT_FAILURE);
 }
 
+/**
+ * Parses the map file and initializes the map_errors structure.
+ */
 t_map_errors	*parse_map(char *file)
 {
 	char			*line;

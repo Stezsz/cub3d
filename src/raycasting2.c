@@ -6,12 +6,16 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:09:48 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/07 17:46:34 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:22:08 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Draws a fallback wall when no texture is available.
+ * This function fills the wall section with a default color.
+ */
 static void	draw_fallback_wall(t_wall_data *data)
 {
 	int	y;
@@ -24,6 +28,9 @@ static void	draw_fallback_wall(t_wall_data *data)
 	}
 }
 
+/**
+ * Initializes the texture parameters for the wall.
+ */
 static void	init_texture_params(t_wall_data *data, int wall_height)
 {
 	data->ray->tex_step = (float)data->ray->wall_texture->height / wall_height;
@@ -33,6 +40,9 @@ static void	init_texture_params(t_wall_data *data, int wall_height)
 		data->ray->tex_pos = 0;
 }
 
+/**
+ * Draws a textured pixel on the wall.
+ */
 static void	draw_textured_pixel(t_wall_data *data, int y)
 {
 	int	color;
@@ -48,6 +58,9 @@ static void	draw_textured_pixel(t_wall_data *data, int y)
 	put_pixel(data->x, y, color, data->game);
 }
 
+/**
+ * Draws a textured wall section based on the raycasting data.
+ */
 void	draw_textured_wall(t_wall_data *data)
 {
 	int		y;

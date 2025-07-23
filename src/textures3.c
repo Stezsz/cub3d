@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   textures3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:11:02 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/05 17:11:02 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:23:25 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Loads a single texture from a file.
+ */
 static void	load_single_texture(t_game *g, t_texture *texture,
 		char *texture_path, char *error_msg)
 {
@@ -24,6 +27,9 @@ static void	load_single_texture(t_game *g, t_texture *texture,
 		ft_putstr_fd(error_msg, 2);
 }
 
+/**
+ * Loads all wall textures from the parsed map.
+ */
 void	load_wall_textures(t_game *g, t_map_errors *parsed)
 {
 	load_single_texture(g, g->textures->north, parsed->north_texture,

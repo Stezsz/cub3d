@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/11 22:41:33 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:02:12 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
+# define ESC 65307
 
 # define PI 3.14159265359
 

@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 11:33:36 by tborges-          #+#    #+#             */
-/*   Updated: 2025/06/05 16:59:22 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:37:09 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Draws a textured line on the screen.
+ */
 void	draw_textured_line(t_player *player, t_game *game, float start_x, int i)
 {
 	t_fpoint		ray;
@@ -25,6 +28,9 @@ void	draw_textured_line(t_player *player, t_game *game, float start_x, int i)
 	}
 }
 
+/**
+ * Draws a simple line on the screen.
+ */
 void	draw_simple_line(t_player *player, t_game *game, float start_x, int i)
 {
 	t_fpoint	ray;
@@ -45,6 +51,9 @@ void	draw_simple_line(t_player *player, t_game *game, float start_x, int i)
 	}
 }
 
+/**
+ * Draws a line on the screen.
+ */
 void	draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	if (game->textures && game->textures->north)
@@ -53,6 +62,10 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 		draw_simple_line(player, game, start_x, i);
 }
 
+/**
+ * Draws debug elements on the screen.
+ * This includes the player's position and the map.
+ */
 void	draw_debug_elements(t_game *game, t_player *player)
 {
 	t_ipoint	player_square;
@@ -66,6 +79,11 @@ void	draw_debug_elements(t_game *game, t_player *player)
 	}
 }
 
+/**
+ * Draws the rays on the screen.
+ * This function iterates through the width of the screen,
+ * casting rays from the player's position at different angles.
+ */
 void	draw_rays(t_game *game, t_player *player)
 {
 	float	start_x;

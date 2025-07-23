@@ -6,14 +6,15 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:19:33 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/09 00:22:10 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:15:51 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-#include <stdbool.h>
-#include <string.h>
 
+/**
+ * Gets the height of the map.
+ */
 static int	get_map_height(char **map)
 {
 	int	height;
@@ -24,6 +25,11 @@ static int	get_map_height(char **map)
 	return (height);
 }
 
+/**
+ * Checks if a line is surrounded by walls.
+ * This function checks if the first and last characters of the line are '1',
+ * and if the line is not empty or only contains whitespace.
+ */
 static bool	check_line_borders(char *line)
 {
 	int	j;
@@ -44,6 +50,11 @@ static bool	check_line_borders(char *line)
 	return (true);
 }
 
+/**
+ * Validates the middle lines of the map to ensure they are surrounded by walls.
+ * It checks if each line in the middle of the map starts and ends with '1'.
+ * The first and last lines are already checked separately.
+ */
 static bool	validate_middle_lines(char **map, int height)
 {
 	int	i;
@@ -58,6 +69,12 @@ static bool	validate_middle_lines(char **map, int height)
 	return (true);
 }
 
+/**
+ * Validates the walls of the map.
+ * It checks if the first and last lines are walls, and if all middle lines
+ * are also surrounded by walls.
+ * Returns true if the map is valid, false otherwise.
+ */
 bool	validate_map_walls(char **map)
 {
 	int	height;

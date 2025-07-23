@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   textures2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:09:19 by strodrig          #+#    #+#             */
-/*   Updated: 2025/06/05 16:09:19 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/23 22:23:12 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Draws the sky background.
+ */
 void	put_sky(t_game *g)
 {
 	int	y;
@@ -41,6 +44,9 @@ void	put_sky(t_game *g)
 	}
 }
 
+/**
+ * Draws the portal gun.
+ */
 void	put_portal_gun(t_game *g)
 {
 	t_portal_gun	pg;
@@ -69,6 +75,9 @@ void	put_portal_gun(t_game *g)
 	}
 }
 
+/**
+ * Creates the floor and ceiling for a given column.
+ */
 void	create_floor_ceiling(t_game *g, int x, int wall_start, int wall_end)
 {
 	int	y;

@@ -1,65 +1,96 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player2.c                                          :+:      :+:    :+:   */
+/*   player3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/05 17:06:20 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/11 21:48:18 by tborges-         ###   ########.fr       */
+/*   Created: 2025/07/11 21:47:29 by tborges-          #+#    #+#             */
+/*   Updated: 2025/07/23 22:06:26 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	free_parsed_textures(t_map_errors *parsed)
+/**
+ * Sets the player's angle based on the direction character.
+ */
+static void	set_player_angle_from_direction(t_player *player, char direction)
 {
-	if (parsed->north_texture)
-		free(parsed->north_texture);
-	if (parsed->south_texture)
-		free(parsed->south_texture);
-	if (parsed->east_texture)
-		free(parsed->east_texture);
-	if (parsed->west_texture)
-		free(parsed->west_texture);
-	if (parsed->line_of_map)
-		free(parsed->line_of_map);
+	if (direction == 'N')
+		player->angle = 3 * PI / 2;
+	else if (direction == 'S')
+		player->angle = PI / 2;
+	else if (direction == 'E')
+		player->angle = 0;
+	else if (direction == 'W')
+		player->angle = PI;
+	else
+		player->angle = PI / 2;
 }
 
-static void	cleanup_parsed(t_game *game)
+/**
+ * Initializes the player's key states.
+ */
+static void	init_player_keys(t_player *player)
 {
-	if (game->parsed)
-	{
-		free_parsed_textures(game->parsed);
-		free(game->parsed);
-	}
+	player->key_up = false;
+	player->key_down = false;
+	player->key_right = false;
+	player->key_left = false;
+	player->left_rotate = false;
+	player->right_rotate = false;
 }
 
-static void	cleanup_mlx_resources(t_game *game)
+/**
+ * Initializes the player's position to the default values.
+ */
+static void	init_player_pos_default(t_player *player)
 {
-	if (game->img)
-		mlx_destroy_image(game->mlx, game->img);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
+	player->pos.x = WIDTH / 2;
+	player->pos.y = HEIGHT / 2;
+	player->angle = PI / 2;
 }
 
-int	close_game(void *param)
+/**
+ * Initializes the player's position to the specified values.
+ */
+static void	init_player_pos(t_player *player, int x, int y)
 {
-	t_game	*game;
+	player->pos.x = x * BLOCK + BLOCK / 2;
+	player->pos.y = y * BLOCK + BLOCK / 2;
+}
 
-	game = (t_game *)param;
-	if (game)
+/**
+ * Initializes the player from the map.
+ * It searches for the player's starting position
+ * and sets the angle based on the direction character found.
+ */
+void	init_player_from_map(t_player *player, char **map)
+{
+	int		x;
+	int		y;
+	char	direction;
+
+	init_player_keys(player);
+	y = 0;
+	while (map[y])
 	{
-		destroy_textures(game);
-		free_map(game->map);
-		cleanup_parsed(game);
-		cleanup_mlx_resources(game);
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E'
+				|| map[y][x] == 'W')
+			{
+				direction = map[y][x];
+				init_player_pos(player, x, y);
+				set_player_angle_from_direction(player, direction);
+				map[y][x] = '0';
+				return ;
+			}
+			x++;
+		}
+		y++;
 	}
-	exit(0);
-	return (0);
+	init_player_pos_default(player);
 }

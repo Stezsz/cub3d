@@ -6,12 +6,15 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:59:02 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/11 22:09:02 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:38:45 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * Draws a square on the screen.
+ */
 void	draw_square(t_ipoint pos, int size, int color, t_game *game)
 {
 	t_draw	draw;
@@ -35,6 +38,10 @@ void	draw_square(t_ipoint pos, int size, int color, t_game *game)
 	draw_square_aux(draw);
 }
 
+/**
+ * Draws the map on the screen.
+ * Uses the game map data to draw walls as squares.
+ */
 void	draw_map(t_game *game)
 {
 	char		**map;
@@ -62,6 +69,10 @@ void	draw_map(t_game *game)
 	}
 }
 
+/**
+ * Casts a ray from the player's position in a given direction.
+ * The ray continues until it touches a wall or the edge of the map.
+ */
 void	cast_ray(t_fpoint *ray, t_player *player, float angle, t_game *game)
 {
 	*ray = player->pos;
@@ -74,6 +85,9 @@ void	cast_ray(t_fpoint *ray, t_player *player, float angle, t_game *game)
 	}
 }
 
+/**
+ * Main loop for drawing the game.
+ */
 int	draw_loop(t_game *game)
 {
 	t_player	*player;
