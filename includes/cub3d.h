@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/26 14:15:50 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/07/26 16:30:45 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,11 +179,8 @@ int					key_press(int keycode, t_game *game);
 void				move_player(t_player *player, t_game *game);
 void				move_player_angle(t_player *player, float angle_speed);
 
-//player2.c
-int					close_game(void *param);
-
-// player3.c
-void				init_player_from_map(t_player *player, char **map);
+// player2.c
+bool				init_player_from_map(t_game *game);
 
 // player_aux.c
 void				move_player_coordinates(t_player *player,
@@ -211,8 +208,6 @@ int					draw_loop(t_game *game);
 void				draw_square_aux(t_draw draw);
 int					determine_wall_side(t_fpoint ray_start, t_fpoint wall_hit);
 float				calculate_wall_hit_x(t_fpoint wall_hit, int wall_side);
-void				draw_white_wall(t_game *game, int i, int wall_start,
-						int wall_end);
 void				process_ray_casting(t_raycasting *ray_data,
 						t_player *player, t_fpoint ray, t_game *game);
 void				draw_textured_wall_section(t_game *game,
@@ -225,6 +220,7 @@ bool				touch(t_fpoint pos, t_game *game);
 
 // free.c
 void				free_map(char **map);
+int					close_game(void *param);
 
 // parse.c
 t_map_errors		*parse_map(char *file);

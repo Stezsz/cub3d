@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:59:42 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/23 21:35:18 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/26 15:43:16 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,6 @@ float	calculate_wall_hit_x(t_fpoint wall_hit, int wall_side)
 	if (wall_x > 1)
 		wall_x = 1;
 	return (wall_x);
-}
-
-/**
- * Draws a white wall section on the screen.
- */
-void	draw_white_wall(t_game *game, int i, int wall_start, int wall_end)
-{
-	int	y;
-
-	y = wall_start;
-	while (y < wall_end)
-	{
-		put_pixel(i, y, 0xFFFFFF, game);
-		y++;
-	}
 }
 
 /**
@@ -89,8 +74,5 @@ void	draw_textured_wall_section(t_game *game, t_raycasting *ray_data, int i)
 	wall_data.wall_start = ray_data->wall_start;
 	wall_data.wall_end = ray_data->wall_end;
 	wall_data.ray = ray_data;
-	if (ray_data->wall_texture && ray_data->wall_texture->data)
-		draw_textured_wall(&wall_data);
-	else
-		draw_white_wall(game, i, ray_data->wall_start, ray_data->wall_end);
+	draw_textured_wall(&wall_data);
 }

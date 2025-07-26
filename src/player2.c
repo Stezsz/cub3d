@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player3.c                                          :+:      :+:    :+:   */
+/*   player2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 21:47:29 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/23 22:06:26 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/26 16:00:03 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,6 @@ static void	init_player_keys(t_player *player)
 }
 
 /**
- * Initializes the player's position to the default values.
- */
-static void	init_player_pos_default(t_player *player)
-{
-	player->pos.x = WIDTH / 2;
-	player->pos.y = HEIGHT / 2;
-	player->angle = PI / 2;
-}
-
-/**
  * Initializes the player's position to the specified values.
  */
 static void	init_player_pos(t_player *player, int x, int y)
@@ -62,17 +52,14 @@ static void	init_player_pos(t_player *player, int x, int y)
 }
 
 /**
- * Initializes the player from the map.
- * It searches for the player's starting position
- * and sets the angle based on the direction character found.
+ * Finds the player's starting position in the map.
+ * Returns the direction character found, or 0 if not found.
  */
-void	init_player_from_map(t_player *player, char **map)
+static char	find_player_position(char **map, int *player_x, int *player_y)
 {
 	int		x;
 	int		y;
-	char	direction;
 
-	init_player_keys(player);
 	y = 0;
 	while (map[y])
 	{
@@ -82,15 +69,40 @@ void	init_player_from_map(t_player *player, char **map)
 			if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E'
 				|| map[y][x] == 'W')
 			{
-				direction = map[y][x];
-				init_player_pos(player, x, y);
-				set_player_angle_from_direction(player, direction);
-				map[y][x] = '0';
-				return ;
+				*player_x = x;
+				*player_y = y;
+				return (map[y][x]);
 			}
 			x++;
 		}
 		y++;
 	}
-	init_player_pos_default(player);
+	return (0);
+}
+
+/**
+ * Initializes the player from the map.
+ * It searches for the player's starting position
+ * and sets the angle based on the direction character found.
+ * Returns true if successful, false if player not found.
+ */
+bool	init_player_from_map(t_game *game)
+{
+	t_player	*player;
+	char		direction;
+	int			player_x;
+	int			player_y;
+
+	player = &game->player;
+	init_player_keys(player);
+	direction = find_player_position(game->map, &player_x, &player_y);
+	if (direction == 0)
+	{
+		ft_putstr_fd("Error\nPlayer not found in map.\n", 2);
+		return (false);
+	}
+	init_player_pos(player, player_x, player_y);
+	set_player_angle_from_direction(player, direction);
+	game->map[player_y][player_x] = '0';
+	return (true);
 }
