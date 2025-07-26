@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:57 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/23 22:10:29 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/07/26 14:04:14 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	count_map_lines(char *file)
 		if (line[0] == '1' || (line[0] == ' ' && ft_strchr(line, '1')))
 			map_started = true;
 		if (map_started && (line[0] == '1' || line[0] == ' '
-				|| ft_strchr("NSEW", line[0])))
+				|| ft_strchr("NSEW", line[0]) || line[0] == '0'))
 			map_lines++;
 		free(line);
 		line = get_next_line(fd);
@@ -51,7 +51,7 @@ static void	read_map_lines_aux(char *line, t_map_errors *map_errors, int *i,
 	if (line[0] == '1' || (line[0] == ' ' && ft_strchr(line, '1')))
 		*map_started = true;
 	if (*map_started && (line[0] == '1' || line[0] == ' ' || ft_strchr("NSEW",
-				line[0])))
+				line[0]) || line[0] == '0'))
 	{
 		map_errors->map[*i] = ft_strdup(line);
 		(*i)++;
