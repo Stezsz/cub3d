@@ -6,7 +6,7 @@
 #    By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/25 22:04:15 by tborges-          #+#    #+#              #
-#    Updated: 2025/07/23 22:08:41 by tborges-         ###   ########.fr        #
+#    Updated: 2025/08/11 23:26:19 by tborges-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L./$(INC_DIR)/mlx -lmlx -lXext -lX11 -lm -lz
 RM = rm -f
 
-FILES = cub3d player player_aux player2 dist draw draw_aux draw_aux2 draw2 free parse parse2 process_map process_map2 process_map3 textures textures2 textures3 raycasting raycasting2
+FILES = cub3d player player_aux player2 dist draw draw_aux draw_aux2 draw2 free parse parse2 process_map process_map2 process_map3 process_map4 process_map5 textures textures2 textures3 raycasting raycasting2
 
 SRC = $(addprefix $(SRC_DIR)/, $(FILES:=.c))
 OBJ = $(addprefix $(OBJDIR)/, $(notdir $(SRC:.c=.o)))

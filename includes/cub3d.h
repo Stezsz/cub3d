@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/26 16:30:45 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/11 23:29:47 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,17 @@ bool				validate_map_walls(char **map);
 // process_map3.c
 bool				is_wall_line(const char *line);
 void				debug_print_map(char **map);
+
+// process_map4.c
+bool				is_accessible_cell(char **map, int y, int x, int height);
+bool				touches_boundary(char **map, int y, int x, int height);
+bool				flood_fill_boundary_check(char **map, int y, int x, int height, bool **visited);
+
+// process_map5.c
+bool				init_visited_row(bool **visited, char **map, int i);
+bool				**create_visited_matrix(char **map, int height);
+void				free_visited_matrix(bool **visited, int height);
+bool				validate_enclosed_areas(char **map);
 
 // textures.c
 void				init_textures(t_game *g);

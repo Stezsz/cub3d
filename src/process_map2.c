@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:19:33 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/26 16:20:21 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/11 23:26:19 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,151 +70,17 @@ static bool	validate_middle_lines(char **map, int height)
 }
 
 /**
- * Checks if a cell is valid and not a wall.
+ * Finds the last non-empty line in the map.
  */
-static bool	is_accessible_cell(char **map, int y, int x, int height)
+static int	find_last_non_empty_line(char **map, int height)
 {
-	int	width;
+	int	last_non_empty_line;
 
-	if (y < 0 || y >= height)
-		return (false);
-	if (x < 0)
-		return (false);
-	width = ft_strlen(map[y]);
-	if (x >= width)
-		return (false);
-	return (map[y][x] != '1' && map[y][x] != ' ');
-}
-
-/**
- * Checks if an accessible cell touches the map boundary.
- */
-static bool	touches_boundary(char **map, int y, int x, int height)
-{
-	int	width;
-
-	width = ft_strlen(map[y]);
-	if (y == 0 || y == height - 1)
-		return (true);
-	if (x == 0 || x == width - 1)
-		return (true);
-	if (y > 0 && x < (int)ft_strlen(map[y - 1]))
-		if (map[y - 1][x] == ' ')
-			return (true);
-	if (y < height - 1 && x < (int)ft_strlen(map[y + 1]))
-		if (map[y + 1][x] == ' ')
-			return (true);
-	if (x > 0 && map[y][x - 1] == ' ')
-		return (true);
-	if (x < width - 1 && map[y][x + 1] == ' ')
-		return (true);
-	return (false);
-}
-
-/**
- * Flood fill to check if accessible areas touch map boundaries.
- */
-static bool	flood_fill_boundary_check(char **map, int y, int x, int height,
-		bool **visited)
-{
-	if (!is_accessible_cell(map, y, x, height) || visited[y][x])
-		return (false);
-	visited[y][x] = true;
-	if (touches_boundary(map, y, x, height))
-		return (true);
-	if (flood_fill_boundary_check(map, y - 1, x, height, visited)
-		|| flood_fill_boundary_check(map, y + 1, x, height, visited)
-		|| flood_fill_boundary_check(map, y, x - 1, height, visited)
-		|| flood_fill_boundary_check(map, y, x + 1, height, visited))
-		return (true);
-	return (false);
-}
-
-/**
- * Creates a visited matrix for flood fill algorithm.
- */
-static bool	**create_visited_matrix(char **map, int height)
-{
-	bool	**visited;
-	int		i;
-	int		j;
-
-	visited = malloc(sizeof(bool *) * height);
-	if (!visited)
-		return (NULL);
-	i = 0;
-	while (i < height)
-	{
-		visited[i] = malloc(sizeof(bool) * (ft_strlen(map[i]) + 1));
-		if (!visited[i])
-		{
-			while (--i >= 0)
-				free(visited[i]);
-			free(visited);
-			return (NULL);
-		}
-		j = 0;
-		while (j <= (int)ft_strlen(map[i]))
-		{
-			visited[i][j] = false;
-			j++;
-		}
-		i++;
-	}
-	return (visited);
-}
-
-/**
- * Frees the visited matrix.
- */
-static void	free_visited_matrix(bool **visited, int height)
-{
-	int	i;
-
-	if (!visited)
-		return ;
-	i = 0;
-	while (i < height)
-	{
-		free(visited[i]);
-		i++;
-	}
-	free(visited);
-}
-
-/**
- * Validates that all accessible areas are properly enclosed by walls.
- */
-static bool	validate_enclosed_areas(char **map)
-{
-	int		height;
-	int		y;
-	int		x;
-	bool	**visited;
-	bool	is_valid;
-
-	height = get_map_height(map);
-	visited = create_visited_matrix(map, height);
-	if (!visited)
-		return (false);
-	is_valid = true;
-	y = 0;
-	while (y < height && is_valid)
-	{
-		x = 0;
-		while (x < (int)ft_strlen(map[y]) && is_valid)
-		{
-			if (is_accessible_cell(map, y, x, height) && !visited[y][x])
-			{
-				if (flood_fill_boundary_check(map, y, x, height, visited))
-					is_valid = false;
-			}
-			x++;
-		}
-		y++;
-	}
-	free_visited_matrix(visited, height);
-	return (is_valid);
+	last_non_empty_line = height - 1;
+	while (last_non_empty_line >= 0 && (map[last_non_empty_line][0] == '\0'
+		|| map[last_non_empty_line][0] == '\n'))
+		last_non_empty_line--;
+	return (last_non_empty_line);
 }
 
 /**
@@ -231,10 +97,7 @@ bool	validate_map_walls(char **map)
 	if (DEBUG)
 		debug_print_map(map);
 	height = get_map_height(map);
-	last_non_empty_line = height - 1;
-	while (last_non_empty_line >= 0 && (map[last_non_empty_line][0] == '\0'
-		|| map[last_non_empty_line][0] == '\n'))
-		last_non_empty_line--;
+	last_non_empty_line = find_last_non_empty_line(map, height);
 	if (!is_wall_line(map[0]) || !is_wall_line(map[last_non_empty_line]))
 		return (false);
 	if (!validate_middle_lines(map, last_non_empty_line + 1))
