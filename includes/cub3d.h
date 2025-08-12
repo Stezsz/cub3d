@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/11 23:29:47 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:42:14 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,24 @@ typedef struct s_textures
 	t_texture		*portal_gun;
 }					t_textures;
 
-typedef struct s_map_errors
-{
-	int				current_fd;
-	int				inv_north;
-	int				inv_south;
-	int				inv_west;
-	int				inv_east;
-	int				inv_floor;
-	int				inv_ceiling;
-	char			*north_texture;
-	char			*south_texture;
-	char			*west_texture;
-	char			*east_texture;
-	int				floor_color;
-	int				ceiling_color;
-	char			*line_of_map;
-	char			**map;
-}					t_map_errors;
+// typedef struct s_map
+// {
+// 	int				current_fd;
+// 	int				inv_north;
+// 	int				inv_south;
+// 	int				inv_west;
+// 	int				inv_east;
+// 	int				inv_floor;
+// 	int				inv_ceiling;
+// 	char			*north_texture;
+// 	char			*south_texture;
+// 	char			*west_texture;
+// 	char			*east_texture;
+// 	int				floor_color;
+// 	int				ceiling_color;
+// 	char			*line_of_map;
+// 	char			**map;
+// }					t_map;
 
 typedef struct s_player
 {
@@ -122,7 +122,7 @@ typedef struct s_game
 	t_player		player;
 
 	char			**map;
-	t_map_errors	*parsed;
+	t_map			*parsed;
 	t_textures		*textures;
 	float			sky_offset_x;
 }					t_game;
@@ -223,11 +223,8 @@ void				free_map(char **map);
 int					close_game(void *param);
 
 // parse.c
-t_map_errors		*parse_map(char *file);
-t_map_errors		*init_parser(void);
 int					insert_value(t_map_errors *errors, char *line, char *check,
 						int i);
-int					line_check(char **line, t_map_errors *map_errors);
 
 // parse2.c
 int					find_type(t_map_errors *errors, char *trim_line,
@@ -236,26 +233,11 @@ void				inset_file(int *add_direc, char **dest, char *origin);
 int					find_color(char *origin, int i, int *grand_total);
 void				inset_color(int *add_color, int *dest, char *origin);
 
-// process_map.c
-void				process_map(t_map_errors *map_errors, char *file);
-
-// process_map2.c
-bool				validate_map_walls(char **map);
-
 // process_map3.c
-bool				is_wall_line(const char *line);
 void				debug_print_map(char **map);
 
-// process_map4.c
-bool				is_accessible_cell(char **map, int y, int x, int height);
-bool				touches_boundary(char **map, int y, int x, int height);
-bool				flood_fill_boundary_check(char **map, int y, int x, int height, bool **visited);
-
-// process_map5.c
-bool				init_visited_row(bool **visited, char **map, int i);
-bool				**create_visited_matrix(char **map, int height);
-void				free_visited_matrix(bool **visited, int height);
-bool				validate_enclosed_areas(char **map);
+// map_check.c
+int					check_closed_map(char **map, int rows, int cols);
 
 // textures.c
 void				init_textures(t_game *g);

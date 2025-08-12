@@ -6,27 +6,11 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/07/26 16:03:53 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:56:20 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-/**
- * Initializes map parsing and validates the result.
- */
-static t_map_errors	*init_map_and_parser(char *map_path)
-{
-	t_map_errors	*parse_result;
-
-	parse_result = parse_map(map_path);
-	if (!parse_result)
-	{
-		ft_putstr_fd("Error\nParsing map failed.\n", 2);
-		exit(1);
-	}
-	return (parse_result);
-}
 
 /**
  * Initializes MLX resources and creates window and image.
@@ -56,23 +40,35 @@ static void	finalize_game_init(t_game *game, t_map_errors *parse_result)
  */
 void	init_game(t_game *game, char *map_path)
 {
-	t_map_errors	*parse_result;
+	// t_map_errors	*parse_result;
 
-	parse_result = init_map_and_parser(map_path);
-	game->map = parse_result->map;
+	// parse_result = init_map_and_parser(map_path);
+	int     map_h;
+	int     map_w;
+	char    **map;
+
+	map = get_map_from_file(map_path, &map_h, &map_w);
+
+	if (!check_closed_map(map, map_h, map_w))
+	{
+		ft_putstr_fd("Error\nInvalid Map: it's not closed!\n", 2);
+		exit(1);
+	}
+	
+	// game->map = parse_result->map;
 	if (!game->map)
 	{
 		ft_putstr_fd("Error\nLoading map failed.\n", 2);
-		free(parse_result);
+		// free(parse_result);
 		exit(1);
 	}
 	if (!init_player_from_map(game))
 	{
-		free(parse_result);
+		// free(parse_result);
 		exit(1);
 	}
 	init_mlx_resources(game);
-	finalize_game_init(game, parse_result);
+	// finalize_game_init(game, parse_result);
 }
 
 /**

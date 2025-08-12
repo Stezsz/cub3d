@@ -1,0 +1,13 @@
+NO ./resources/textures/bluewall.xpm
+SO ./resources/textures/bluewall.xpm
+WE ./resources/textures/bluewall.xpm
+EA ./resources/textures/bluewall.xpm
+
+F 220,100,0
+C 225,30,0
+
+111111111
+100000001
+10000E001
+100000001
+111111111
