@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:00:38 by strodrig          #+#    #+#             */
-/*   Updated: 2025/08/12 12:34:18 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:17:11 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /**
  * Inserts a value into the map_errors structure.
  */
-int	insert_value(t_map_errors *errors, char *line, char *check, int i)
+int	insert_value(t_map *errors, char *line, char *check, int i)
 {
 	int		test;
 	int		color_or_texture;

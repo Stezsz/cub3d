@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player2.c                                          :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:06:20 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/23 22:07:24 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:17:11 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * Frees the memory allocated for the parsed textures.
  */
-static void	free_parsed_textures(t_map_errors *parsed)
+static void	free_parsed_textures(t_map *parsed)
 {
 	if (parsed->north_texture)
 		free(parsed->north_texture);

@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:11:02 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/26 15:25:24 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:17:11 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	load_single_texture(t_game *g, t_texture *texture,
 /**
  * Loads all wall textures from the parsed map.
  */
-void	load_wall_textures(t_game *g, t_map_errors *parsed)
+void	load_wall_textures(t_game *g, t_map *parsed)
 {
 	load_single_texture(g, g->textures->north, parsed->north_texture,
 		"Warning: Failed to load north texture\n");

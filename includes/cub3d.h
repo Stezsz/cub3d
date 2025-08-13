@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/12 12:42:14 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:18:39 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,24 @@ typedef struct s_textures
 	t_texture		*portal_gun;
 }					t_textures;
 
-// typedef struct s_map
-// {
-// 	int				current_fd;
-// 	int				inv_north;
-// 	int				inv_south;
-// 	int				inv_west;
-// 	int				inv_east;
-// 	int				inv_floor;
-// 	int				inv_ceiling;
-// 	char			*north_texture;
-// 	char			*south_texture;
-// 	char			*west_texture;
-// 	char			*east_texture;
-// 	int				floor_color;
-// 	int				ceiling_color;
-// 	char			*line_of_map;
-// 	char			**map;
-// }					t_map;
+typedef struct s_map
+{
+	int				current_fd;
+	int				inv_north;
+	int				inv_south;
+	int				inv_west;
+	int				inv_east;
+	int				inv_floor;
+	int				inv_ceiling;
+	char			*north_texture;
+	char			*south_texture;
+	char			*west_texture;
+	char			*east_texture;
+	int				floor_color;
+	int				ceiling_color;
+	char			*line_of_map;
+	char			**map;
+}					t_map;
 
 typedef struct s_player
 {
@@ -223,11 +223,11 @@ void				free_map(char **map);
 int					close_game(void *param);
 
 // parse.c
-int					insert_value(t_map_errors *errors, char *line, char *check,
+int					insert_value(t_map *errors, char *line, char *check,
 						int i);
 
 // parse2.c
-int					find_type(t_map_errors *errors, char *trim_line,
+int					find_type(t_map *errors, char *trim_line,
 						char *check);
 void				inset_file(int *add_direc, char **dest, char *origin);
 int					find_color(char *origin, int i, int *grand_total);
@@ -239,10 +239,13 @@ void				debug_print_map(char **map);
 // map_check.c
 int					check_closed_map(char **map, int rows, int cols);
 
+// map_load.c
+char				**get_map_from_file(char *file, int *h, int *w);
+
 // textures.c
 void				init_textures(t_game *g);
-void				load_wall_textures(t_game *g, t_map_errors *parsed);
-void				load_textures(t_game *g, t_map_errors *parsed);
+void				load_wall_textures(t_game *g, t_map *parsed);
+void				load_textures(t_game *g, t_map *parsed);
 void				destroy_textures(t_game *g);
 
 // textures2.c

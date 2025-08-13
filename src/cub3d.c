@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/12 12:56:20 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:20:17 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ static void	init_mlx_resources(t_game *game)
 /**
  * Finalizes game initialization with textures and initial rendering.
  */
-static void	finalize_game_init(t_game *game, t_map_errors *parse_result)
-{
-	game->parsed = parse_result;
-	load_textures(game, parse_result);
-	ft_bzero(game->data, HEIGHT * game->size_line);
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-}
+// static void	finalize_game_init(t_game *game, t_map *parse_result)
+// {
+// 	game->parsed = parse_result;
+// 	load_textures(game, parse_result);
+// 	ft_bzero(game->data, HEIGHT * game->size_line);
+// 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+// }
 
 /**
  * Initializes the game structure and loads the map and textures.
  */
 void	init_game(t_game *game, char *map_path)
 {
-	// t_map_errors	*parse_result;
+	// t_map	*parse_result;
 
 	// parse_result = init_map_and_parser(map_path);
 	int     map_h;
@@ -54,7 +54,8 @@ void	init_game(t_game *game, char *map_path)
 		ft_putstr_fd("Error\nInvalid Map: it's not closed!\n", 2);
 		exit(1);
 	}
-	
+	ft_printf("test done\n");
+	exit(0);
 	// game->map = parse_result->map;
 	if (!game->map)
 	{

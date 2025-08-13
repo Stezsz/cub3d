@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 15:34:13 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/23 21:45:38 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:17:11 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * Checks the type of the line and inserts the corresponding file or color.
  */
-int	find_type(t_map_errors *errors, char *trim_line, char *check)
+int	find_type(t_map *errors, char *trim_line, char *check)
 {
 	if (ft_strncmp(check, "NO", 3) == 0)
 		inset_file(&errors->inv_north, &errors->north_texture, trim_line);

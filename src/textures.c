@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:08:59 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/23 22:26:01 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:17:11 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_textures(t_game *g)
  * Loads the wall textures from the map errors structure.
  * Uses the mlx_xpm_file_to_image function to load the textures.
  */
-void	load_textures(t_game *g, t_map_errors *parsed)
+void	load_textures(t_game *g, t_map *parsed)
 {
 	init_textures(g);
 	g->textures->portal_gun->img = mlx_xpm_file_to_image(g->mlx,
