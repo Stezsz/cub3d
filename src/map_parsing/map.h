@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:29:51 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/13 18:09:10 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:10:21 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 
 typedef struct s_map
 {
-	char	**map;        // 2D array representing the map
-	int		height;      // Height of the map
-	int		width;       // Width of the map
-} t_map;
+	char	**map;
+	int		height;
+	int		width;
+}	t_map;
 
 // Function prototypes
 t_map	*map_init_from_fd(int fd);
@@ -55,5 +55,14 @@ int		find_player_position(t_map *map, int *player_x, int *player_y);
 // map_verify_memory.c
 char	**create_visited_array(t_map *map);
 void	free_visited_array(char **visited, int height);
+
+// map_read_utils.c
+int		count_map_lines(int fd);
+int		calculate_max_width(char **map_lines, int height);
+void	normalize_map_lines(char **map_lines, int height, int width);
+
+// map_read_grid.c
+int		read_map_lines_from_fd(int fd, char **map_lines, int max_height);
+char	**read_map_grid(int fd, int *height, int *width);
 
 #endif

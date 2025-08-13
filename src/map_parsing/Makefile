@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 NAME = test_map
 
 # Source files
-SRCS = test_map.c map_read.c map_verify.c map_verify_aux.c map_verify_utils.c map_verify_memory.c
+SRCS = test_map.c map_read.c map_read_utils.c map_read_grid.c map_verify.c map_verify_aux.c map_verify_utils.c map_verify_memory.c
 OBJS = $(SRCS:.c=.o)
 
 # Include paths
