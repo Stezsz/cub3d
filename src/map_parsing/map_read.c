@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:28:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 11:50:03 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 14:51:47 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ t_map_data	*map_init_from_fd(char *filename, int fd)
 	map->map = NULL;
 	map->height = 0;
 	map->width = 0;
+	map->north_texture = NULL;
+	map->south_texture = NULL;
+	map->east_texture = NULL;
+	map->west_texture = NULL;
+	map->floor_color = -1;
+	map->ceiling_color = -1;
 	map->map = read_map_grid(filename, fd, &map->height, &map->width);
 	if (!map->map)
 	{
@@ -61,6 +67,12 @@ t_map_data	*map_read(char *map_file)
 		printf("Error: Failed to initialize map from %s\n", map_file);
 		return (NULL);
 	}
+	if (!parse_textures_and_colors(map, map_file))
+	{
+		printf("Error: Failed to parse textures and colors from %s\n", map_file);
+		map_free(map);
+		return (NULL);
+	}
 	return (map);
 }
 
@@ -83,6 +95,14 @@ void	map_free(t_map_data *map)
 		}
 		free(map->map);
 	}
+	if (map->north_texture)
+		free(map->north_texture);
+	if (map->south_texture)
+		free(map->south_texture);
+	if (map->east_texture)
+		free(map->east_texture);
+	if (map->west_texture)
+		free(map->west_texture);
 	free(map);
 }
 

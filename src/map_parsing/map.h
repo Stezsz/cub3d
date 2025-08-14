@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:29:51 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 12:39:32 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 14:51:47 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef struct s_map_data
 	char	**map;
 	int		height;
 	int		width;
+	char	*north_texture;
+	char	*south_texture;
+	char	*east_texture;
+	char	*west_texture;
+	int		floor_color;
+	int		ceiling_color;
 }	t_map_data;
 
 // Function prototypes
@@ -67,5 +73,8 @@ char	**read_map_grid(char *filename, int fd, int *height, int *width);
 
 // ft_lseek.c
 int		count_map_lines_from_file(char *filename);
+
+// map_parse_textures.c
+int		parse_textures_and_colors(t_map_data *map_data, char *filename);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 12:39:32 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 14:24:26 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,27 @@ static void	init_mlx_resources(t_game *game)
 // }
 
 /**
+ * Creates a t_map structure from t_map_data for texture loading compatibility
+ */
+static t_map	*create_parsed_map(t_map_data *map_data)
+{
+	t_map	*parsed;
+
+	parsed = malloc(sizeof(t_map));
+	if (!parsed)
+		return (NULL);
+	ft_bzero(parsed, sizeof(t_map));
+	parsed->north_texture = ft_strdup(map_data->north_texture);
+	parsed->south_texture = ft_strdup(map_data->south_texture);
+	parsed->east_texture = ft_strdup(map_data->east_texture);
+	parsed->west_texture = ft_strdup(map_data->west_texture);
+	parsed->floor_color = map_data->floor_color;
+	parsed->ceiling_color = map_data->ceiling_color;
+	parsed->map = map_data->map;
+	return (parsed);
+}
+
+/**
  * Initializes the game structure and loads the map and textures.
  */
 void	init_game(t_game *game, char *map_path)
@@ -59,6 +80,13 @@ void	init_game(t_game *game, char *map_path)
 	ft_printf("Map verification passed\n");
 	game->map = map_data->map;
 	game->map_data = map_data;
+	game->parsed = create_parsed_map(map_data);
+	if (!game->parsed)
+	{
+		ft_putstr_fd("Error\nFailed to create parsed map structure.\n", 2);
+		map_free(map_data);
+		exit(1);
+	}
 	if (!init_player_from_map(game))
 	{
 		map_free(map_data);
@@ -67,6 +95,8 @@ void	init_game(t_game *game, char *map_path)
 	ft_printf("Player initialized\n");
 	init_mlx_resources(game);
 	ft_printf("MLX initialized\n");
+	load_textures(game, game->parsed);
+	ft_printf("Textures loaded\n");
 }
 
 /**

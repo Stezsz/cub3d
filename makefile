@@ -6,7 +6,7 @@
 #    By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/25 22:04:15 by tborges-          #+#    #+#              #
-#    Updated: 2025/08/14 12:39:32 by tborges-         ###   ########.fr        #
+#    Updated: 2025/08/14 14:24:26 by tborges-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L./$(INC_DIR)/mlx -lmlx -lXext -lX11 -lm -lz
 RM = rm -f
 
-FILES = cub3d player player_aux player2 dist draw draw_aux draw_aux2 draw2 free parse parse2 process_map3 textures textures2 textures3 raycasting raycasting2 map_parsing/map_read map_parsing/map_read_utils map_parsing/map_read_grid map_parsing/ft_lseek map_parsing/map_verify map_parsing/map_verify_aux map_parsing/map_verify_utils map_parsing/map_verify_memory
+FILES = cub3d player player_aux player2 dist draw draw_aux draw_aux2 draw2 free parse parse2 process_map3 textures textures2 textures3 raycasting raycasting2 map_parsing/map_read map_parsing/map_read_utils map_parsing/map_read_grid map_parsing/ft_lseek map_parsing/map_verify map_parsing/map_verify_aux map_parsing/map_verify_utils map_parsing/map_verify_memory map_parsing/map_parse_textures
 
 SRC = $(addprefix $(SRC_DIR)/, $(FILES:=.c))
 OBJ = $(addprefix $(OBJDIR)/, $(subst /,_,$(FILES:=.o)))
