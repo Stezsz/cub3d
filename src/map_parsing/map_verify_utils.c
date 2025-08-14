@@ -49,7 +49,7 @@ int	is_valid_char(char c)
 /**
  * Checks if coordinates are within map bounds
  */
-int	is_valid_pos(t_map *map, int x, int y)
+int	is_valid_pos(t_map_data *map, int x, int y)
 {
 	return (x >= 0 && x < map->height && y >= 0 && y < map->width);
 }

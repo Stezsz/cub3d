@@ -14,15 +14,15 @@
 
 /**
  * Initializes a map structure from a file pointer
- * Returns: pointer to initialized t_map structure, or NULL on error
+ * Returns: pointer to initialized t_map_data structure, or NULL on error
  */
-t_map	*map_init_from_fd(char *filename, int fd)
+t_map_data	*map_init_from_fd(char *filename, int fd)
 {
-	t_map	*map;
+	t_map_data	*map;
 
 	if (fd < 0)
 		return (NULL);
-	map = malloc(sizeof(t_map));
+	map = malloc(sizeof(t_map_data));
 	if (!map)
 		return (NULL);
 	map->map = NULL;
@@ -41,10 +41,10 @@ t_map	*map_init_from_fd(char *filename, int fd)
  * This function receives a map file path and reads the map data.
  * It is expected to parse the map and store it in a suitable data structure.
  */
-t_map	*map_read(char *map_file)
+t_map_data	*map_read(char *map_file)
 {
 	int		fd;
-	t_map	*map;
+	t_map_data	*map;
 
 	if (!map_file)
 		return (NULL);
@@ -67,7 +67,7 @@ t_map	*map_read(char *map_file)
 /**
  * Frees all memory allocated for a map structure
  */
-void	map_free(t_map *map)
+void	map_free(t_map_data *map)
 {
 	int	i;
 
@@ -89,7 +89,7 @@ void	map_free(t_map *map)
 /**
  * Debug function to print the map
  */
-void	map_print_debug(t_map *map)
+void	map_print_debug(t_map_data *map)
 {
 	int	i;
 

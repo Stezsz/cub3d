@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_map.c                                         :+:      :+:    :+:   */
+/*   test_map_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,11 +15,11 @@
 
 /**
  * Test program to demonstrate map initialization
- * Usage: ./test_map <map_file>
+ * Usage: ./test_map_data <map_file>
  */
 int main(int argc, char **argv)
 {
-	t_map *map;
+	t_map_data *map;
 
 	if (argc != 2)
 	{

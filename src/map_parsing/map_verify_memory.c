@@ -28,7 +28,7 @@ static void	initialize_row(char *row, int width)
 /**
  * Creates a visited array for flood fill algorithm
  */
-char	**create_visited_array(t_map *map)
+char	**create_visited_array(t_map_data *map)
 {
 	char	**visited;
 	int		i;

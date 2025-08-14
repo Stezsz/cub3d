@@ -36,7 +36,7 @@ static void	init_directions(int dx[8], int dy[8])
  * Checks the 8 neighbors of a position to see if any is void (space)
  * Returns 1 if map is invalid (found void neighbor), 0 if valid
  */
-int	check_neighbors_for_void(t_map *map, int x, int y)
+int	check_neighbors_for_void(t_map_data *map, int x, int y)
 {
 	int	dx[8];
 	int	dy[8];
@@ -64,7 +64,7 @@ int	check_neighbors_for_void(t_map *map, int x, int y)
  * and checks if they're properly surrounded by walls
  * Returns 1 if map is invalid, 0 if valid
  */
-int	flood_fill_check(t_map *map, char **visited, int x, int y)
+int	flood_fill_check(t_map_data *map, char **visited, int x, int y)
 {
 	if (!is_valid_pos(map, x, y))
 		return (0);
@@ -90,7 +90,7 @@ int	flood_fill_check(t_map *map, char **visited, int x, int y)
  * Finds the player position in the map
  * Returns 1 if found (sets player_x, player_y), 0 if not found
  */
-int	find_player_position(t_map *map, int *player_x, int *player_y)
+int	map_find_player_position(t_map_data *map, int *player_x, int *player_y)
 {
 	int	x;
 	int	y;

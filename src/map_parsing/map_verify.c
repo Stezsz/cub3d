@@ -16,7 +16,7 @@
  * Verifies if the map is properly enclosed by walls using flood fill
  * Returns 1 if map is valid (enclosed), 0 if invalid (has leaks to void)
  */
-int	map_verify_enclosed(t_map *map)
+int	map_verify_enclosed(t_map_data *map)
 {
 	char	**visited;
 	int		player_x;
@@ -25,7 +25,7 @@ int	map_verify_enclosed(t_map *map)
 
 	if (!map || !map->map)
 		return (0);
-	if (!find_player_position(map, &player_x, &player_y))
+	if (!map_find_player_position(map, &player_x, &player_y))
 	{
 		ft_putstr_fd("Error\nNo player found in map\n", 2);
 		return (0);
@@ -45,7 +45,7 @@ int	map_verify_enclosed(t_map *map)
  * Counts the number of players in the map and checks if there's exactly one
  * Returns 1 if valid (exactly one player), 0 if invalid (0 or multiple players)
  */
-int	map_verify_player_count(t_map *map)
+int	map_verify_player_count(t_map_data *map)
 {
 	int	x;
 	int	y;
@@ -76,7 +76,7 @@ int	map_verify_player_count(t_map *map)
  * Verifies if all characters in the map are valid
  * Returns 1 if all characters are valid, 0 if invalid characters found
  */
-int	map_verify_characters(t_map *map)
+int	map_verify_characters(t_map_data *map)
 {
 	int	x;
 	int	y;
@@ -109,7 +109,7 @@ int	map_verify_characters(t_map *map)
  * enclosure and player count. Returns 1 if map is completely valid,
  * 0 if any validation fails
  */
-int	map_verify_complete(t_map *map)
+int	map_verify_complete(t_map_data *map)
 {
 	if (!map)
 		return (0);

@@ -6,7 +6,7 @@
 #    By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/25 22:04:15 by tborges-          #+#    #+#              #
-#    Updated: 2025/08/13 12:28:03 by tborges-         ###   ########.fr        #
+#    Updated: 2025/08/14 12:39:32 by tborges-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,10 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L./$(INC_DIR)/mlx -lmlx -lXext -lX11 -lm -lz
 RM = rm -f
 
-FILES = cub3d player player_aux player2 dist draw draw_aux draw_aux2 draw2 free parse parse2 process_map3 textures textures2 textures3 raycasting raycasting2
+FILES = cub3d player player_aux player2 dist draw draw_aux draw_aux2 draw2 free parse parse2 process_map3 textures textures2 textures3 raycasting raycasting2 map_parsing/map_read map_parsing/map_read_utils map_parsing/map_read_grid map_parsing/ft_lseek map_parsing/map_verify map_parsing/map_verify_aux map_parsing/map_verify_utils map_parsing/map_verify_memory
 
 SRC = $(addprefix $(SRC_DIR)/, $(FILES:=.c))
-OBJ = $(addprefix $(OBJDIR)/, $(notdir $(SRC:.c=.o)))
+OBJ = $(addprefix $(OBJDIR)/, $(subst /,_,$(FILES:=.o)))
 HEADER = $(INC_DIR)/cub3d.h
 INCLUDES = -I $(INC_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
 
@@ -69,6 +69,11 @@ $(MLX):
 	@$(MAKE) -C $(MLX_DIR)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
+	@mkdir -p $(OBJDIR)
+	@printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJDIR)/map_parsing_%.o: $(SRC_DIR)/map_parsing/%.c $(HEADER)
 	@mkdir -p $(OBJDIR)
 	@printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

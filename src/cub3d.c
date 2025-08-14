@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/13 12:20:17 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:39:32 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,36 +40,33 @@ static void	init_mlx_resources(t_game *game)
  */
 void	init_game(t_game *game, char *map_path)
 {
-	// t_map	*parse_result;
+	t_map_data	*map_data;
 
-	// parse_result = init_map_and_parser(map_path);
-	int     map_h;
-	int     map_w;
-	char    **map;
-
-	map = get_map_from_file(map_path, &map_h, &map_w);
-
-	if (!check_closed_map(map, map_h, map_w))
-	{
-		ft_putstr_fd("Error\nInvalid Map: it's not closed!\n", 2);
-		exit(1);
-	}
-	ft_printf("test done\n");
-	exit(0);
-	// game->map = parse_result->map;
-	if (!game->map)
+	ft_printf("Loading map from: %s\n", map_path);
+	map_data = map_read(map_path);
+	if (!map_data)
 	{
 		ft_putstr_fd("Error\nLoading map failed.\n", 2);
-		// free(parse_result);
 		exit(1);
 	}
+	ft_printf("Map loaded successfully - dimensions: %dx%d\n", map_data->width, map_data->height);
+	if (!map_verify_complete(map_data))
+	{
+		ft_putstr_fd("Error\nInvalid Map!\n", 2);
+		map_free(map_data);
+		exit(1);
+	}
+	ft_printf("Map verification passed\n");
+	game->map = map_data->map;
+	game->map_data = map_data;
 	if (!init_player_from_map(game))
 	{
-		// free(parse_result);
+		map_free(map_data);
 		exit(1);
 	}
+	ft_printf("Player initialized\n");
 	init_mlx_resources(game);
-	// finalize_game_init(game, parse_result);
+	ft_printf("MLX initialized\n");
 }
 
 /**
@@ -79,6 +76,8 @@ int	main(int ac, char **av)
 {
 	t_game	game;
 
+	// Initialize the game structure to zero
+	ft_bzero(&game, sizeof(t_game));
 	if (ac != 2)
 	{
 		ft_putstr_fd("Usage: ./cub3d <map_file>\n", 2);
