@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:29:51 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/13 19:10:21 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 11:50:03 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_map
 }	t_map;
 
 // Function prototypes
-t_map	*map_init_from_fd(int fd);
+t_map	*map_init_from_fd(char *filename, int fd);
 t_map	*map_read(char *map_file);
 void	map_free(t_map *map);
 void	map_print_debug(t_map *map);
@@ -63,6 +63,9 @@ void	normalize_map_lines(char **map_lines, int height, int width);
 
 // map_read_grid.c
 int		read_map_lines_from_fd(int fd, char **map_lines, int max_height);
-char	**read_map_grid(int fd, int *height, int *width);
+char	**read_map_grid(char *filename, int fd, int *height, int *width);
+
+// ft_lseek.c
+int		count_map_lines_from_file(char *filename);
 
 #endif

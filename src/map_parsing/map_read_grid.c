@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 18:00:00 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/13 19:10:21 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 11:50:03 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,11 @@ int	read_map_lines_from_fd(int fd, char **map_lines, int height)
 /**
  * Allocates and sets up map lines array
  */
-static char	**allocate_map_lines(int fd, int *height)
+static char	**allocate_map_lines(char *filename, int fd, int *height)
 {
 	char	**map_lines;
-	long	current_pos;
 
-	current_pos = lseek(fd, 0, SEEK_CUR);
-	*height = count_map_lines(fd);
-	lseek(fd, current_pos, SEEK_SET);
+	*height = count_map_lines_from_file(filename);
 	if (*height == 0)
 		return (NULL);
 	map_lines = malloc(sizeof(char *) * (*height + 1));
@@ -94,11 +91,11 @@ static char	**allocate_map_lines(int fd, int *height)
 /**
  * Reads the map grid from the file
  */
-char	**read_map_grid(int fd, int *height, int *width)
+char	**read_map_grid(char *filename, int fd, int *height, int *width)
 {
 	char	**map_lines;
 
-	map_lines = allocate_map_lines(fd, height);
+	map_lines = allocate_map_lines(filename, fd, height);
 	if (!map_lines)
 		return (NULL);
 	*width = calculate_max_width(map_lines, *height);

@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:28:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/13 19:10:21 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 11:50:03 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * Initializes a map structure from a file pointer
  * Returns: pointer to initialized t_map structure, or NULL on error
  */
-t_map	*map_init_from_fd(int fd)
+t_map	*map_init_from_fd(char *filename, int fd)
 {
 	t_map	*map;
 
@@ -28,7 +28,7 @@ t_map	*map_init_from_fd(int fd)
 	map->map = NULL;
 	map->height = 0;
 	map->width = 0;
-	map->map = read_map_grid(fd, &map->height, &map->width);
+	map->map = read_map_grid(filename, fd, &map->height, &map->width);
 	if (!map->map)
 	{
 		free(map);
@@ -54,7 +54,7 @@ t_map	*map_read(char *map_file)
 		printf("Error: Cannot open map file %s\n", map_file);
 		return (NULL);
 	}
-	map = map_init_from_fd(fd);
+	map = map_init_from_fd(map_file, fd);
 	close(fd);
 	if (!map)
 	{
