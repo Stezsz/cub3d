@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:28:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 14:51:47 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:41:03 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,34 @@ t_map_data	*map_init_from_fd(char *filename, int fd)
 	return (map);
 }
 
-/**
- * This function receives a map file path and reads the map data.
- * It is expected to parse the map and store it in a suitable data structure.
- */
-t_map_data	*map_read(char *map_file)
+/*
+** Opens and validates the map file
+** Returns: file descriptor, or -1 on error
+*/
+static int	open_map_file(char *map_file)
 {
-	int		fd;
-	t_map_data	*map;
+	int	fd;
 
 	if (!map_file)
-		return (NULL);
+		return (-1);
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 	{
 		printf("Error: Cannot open map file %s\n", map_file);
-		return (NULL);
+		return (-1);
 	}
+	return (fd);
+}
+
+/*
+** Processes map initialization and texture parsing
+** Returns: initialized map structure, or NULL on error
+*/
+static t_map_data	*process_map_data(char *map_file, int fd)
+{
+	t_map_data	*map;
+
 	map = map_init_from_fd(map_file, fd);
-	close(fd);
 	if (!map)
 	{
 		printf("Error: Failed to initialize map from %s\n", map_file);
@@ -69,10 +78,28 @@ t_map_data	*map_read(char *map_file)
 	}
 	if (!parse_textures_and_colors(map, map_file))
 	{
-		printf("Error: Failed to parse textures and colors from %s\n", map_file);
+		printf("Error: Failed to parse textures and colors from %s\n",
+			map_file);
 		map_free(map);
 		return (NULL);
 	}
+	return (map);
+}
+
+/**
+ * This function receives a map file path and reads the map data.
+ * It is expected to parse the map and store it in a suitable data structure.
+ */
+t_map_data	*map_read(char *map_file)
+{
+	int			fd;
+	t_map_data	*map;
+
+	fd = open_map_file(map_file);
+	if (fd < 0)
+		return (NULL);
+	map = process_map_data(map_file, fd);
+	close(fd);
 	return (map);
 }
 
@@ -104,29 +131,4 @@ void	map_free(t_map_data *map)
 	if (map->west_texture)
 		free(map->west_texture);
 	free(map);
-}
-
-/**
- * Debug function to print the map
- */
-void	map_print_debug(t_map_data *map)
-{
-	int	i;
-
-	if (!map || !map->map)
-	{
-		printf("Map is NULL or invalid\n");
-		return ;
-	}
-	printf("Map dimensions: %dx%d\n", map->width, map->height);
-	printf("Map content:\n");
-	i = 0;
-	while (i < map->height)
-	{
-		if (map->map[i] != NULL)
-			printf("[%2d] '%s'\n", i, map->map[i]);
-		else
-			printf("[%2d] '(null)'\n", i);
-		i++;
-	}
 }

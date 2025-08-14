@@ -6,15 +6,15 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 14:24:26 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:17:02 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/**
- * Initializes MLX resources and creates window and image.
- */
+/*
+** Initializes MLX resources and creates window and image.
+*/
 static void	init_mlx_resources(t_game *game)
 {
 	game->mlx = mlx_init();
@@ -24,20 +24,9 @@ static void	init_mlx_resources(t_game *game)
 			&game->endian);
 }
 
-/**
- * Finalizes game initialization with textures and initial rendering.
- */
-// static void	finalize_game_init(t_game *game, t_map *parse_result)
-// {
-// 	game->parsed = parse_result;
-// 	load_textures(game, parse_result);
-// 	ft_bzero(game->data, HEIGHT * game->size_line);
-// 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-// }
-
-/**
- * Creates a t_map structure from t_map_data for texture loading compatibility
- */
+/*
+** Creates a t_map structure from t_map_data for texture loading compatibility
+*/
 static t_map	*create_parsed_map(t_map_data *map_data)
 {
 	t_map	*parsed;
@@ -56,10 +45,10 @@ static t_map	*create_parsed_map(t_map_data *map_data)
 	return (parsed);
 }
 
-/**
- * Initializes the game structure and loads the map and textures.
- */
-void	init_game(t_game *game, char *map_path)
+/*
+** Helper function to handle map data loading and verification
+*/
+static t_map_data	*load_and_verify_map(char *map_path)
 {
 	t_map_data	*map_data;
 
@@ -70,7 +59,8 @@ void	init_game(t_game *game, char *map_path)
 		ft_putstr_fd("Error\nLoading map failed.\n", 2);
 		exit(1);
 	}
-	ft_printf("Map loaded successfully - dimensions: %dx%d\n", map_data->width, map_data->height);
+	ft_printf("Map loaded successfully - dimensions: %dx%d\n",
+		map_data->width, map_data->height);
 	if (!map_verify_complete(map_data))
 	{
 		ft_putstr_fd("Error\nInvalid Map!\n", 2);
@@ -78,6 +68,17 @@ void	init_game(t_game *game, char *map_path)
 		exit(1);
 	}
 	ft_printf("Map verification passed\n");
+	return (map_data);
+}
+
+/*
+** Initializes the game structure and loads the map and textures.
+*/
+static void	init_game(t_game *game, char *map_path)
+{
+	t_map_data	*map_data;
+
+	map_data = load_and_verify_map(map_path);
 	game->map = map_data->map;
 	game->map_data = map_data;
 	game->parsed = create_parsed_map(map_data);
@@ -99,14 +100,13 @@ void	init_game(t_game *game, char *map_path)
 	ft_printf("Textures loaded\n");
 }
 
-/**
- * Main function to initialize the game and start the event loop.
- */
+/*
+** Main function to initialize the game and start the event loop.
+*/
 int	main(int ac, char **av)
 {
 	t_game	game;
 
-	// Initialize the game structure to zero
 	ft_bzero(&game, sizeof(t_game));
 	if (ac != 2)
 	{

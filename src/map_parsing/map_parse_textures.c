@@ -6,66 +6,61 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:00:00 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 14:51:47 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:41:03 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 
-/**
- * Parses a color string in format "R,G,B" to integer
- */
+/*
+** Validates and calculates color from RGB values
+*/
+static int	calculate_color(char **rgb)
+{
+	int	color;
+
+	color = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
+	if (ft_atoi(rgb[0]) < 0 || ft_atoi(rgb[0]) > 255 || ft_atoi(rgb[1]) < 0
+		|| ft_atoi(rgb[1]) > 255 || ft_atoi(rgb[2]) < 0
+		|| ft_atoi(rgb[2]) > 255)
+		return (-1);
+	return (color);
+}
+
+/*
+** Parses a color string in format "R,G,B" to integer
+*/
 static int	parse_color_string(char *color_str)
 {
 	char	**rgb;
 	int		color;
-	int		r, g, b;
+	int		i;
 
 	rgb = ft_split(color_str, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 	{
 		if (rgb)
 		{
-			int i = 0;
+			i = 0;
 			while (rgb[i])
 				free(rgb[i++]);
 			free(rgb);
 		}
 		return (-1);
 	}
-	r = ft_atoi(rgb[0]);
-	g = ft_atoi(rgb[1]);
-	b = ft_atoi(rgb[2]);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-	{
-		int i = 0;
-		while (rgb[i])
-			free(rgb[i++]);
-		free(rgb);
-		return (-1);
-	}
-	color = (r << 16) | (g << 8) | b;
-	int i = 0;
+	color = calculate_color(rgb);
+	i = 0;
 	while (rgb[i])
 		free(rgb[i++]);
 	free(rgb);
 	return (color);
 }
 
-/**
- * Processes a texture/color line from the file
- */
-static int	process_config_line(t_map_data *map_data, char *line)
+/*
+** Processes texture and color configuration
+*/
+static void	process_config_element(t_map_data *map_data, char *trimmed)
 {
-	char	*trimmed;
-
-	trimmed = ft_strtrim(line, " \t\n");
-	if (!trimmed || ft_strlen(trimmed) < 3)
-	{
-		if (trimmed)
-			free(trimmed);
-		return (0);
-	}
 	if (ft_strncmp(trimmed, "NO ", 3) == 0 && !map_data->north_texture)
 		map_data->north_texture = ft_strtrim(trimmed + 3, " \t\n");
 	else if (ft_strncmp(trimmed, "SO ", 3) == 0 && !map_data->south_texture)
@@ -78,6 +73,23 @@ static int	process_config_line(t_map_data *map_data, char *line)
 		map_data->floor_color = parse_color_string(trimmed + 2);
 	else if (ft_strncmp(trimmed, "C ", 2) == 0 && map_data->ceiling_color == -1)
 		map_data->ceiling_color = parse_color_string(trimmed + 2);
+}
+
+/*
+** Processes a texture/color line from the file
+*/
+static int	process_config_line(t_map_data *map_data, char *line)
+{
+	char	*trimmed;
+
+	trimmed = ft_strtrim(line, " \t\n");
+	if (!trimmed || ft_strlen(trimmed) < 2)
+	{
+		if (trimmed)
+			free(trimmed);
+		return (0);
+	}
+	process_config_element(map_data, trimmed);
 	free(trimmed);
 	return (1);
 }

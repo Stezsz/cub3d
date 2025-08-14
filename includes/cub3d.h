@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:11:07 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 12:39:32 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:16:43 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,20 +223,6 @@ bool				touch(t_fpoint pos, t_game *game);
 // free.c
 void				free_map(char **map);
 int					close_game(void *param);
-
-// parse.c
-int					insert_value(t_map *errors, char *line, char *check,
-						int i);
-
-// parse2.c
-int					find_type(t_map *errors, char *trim_line,
-						char *check);
-void				inset_file(int *add_direc, char **dest, char *origin);
-int					find_color(char *origin, int i, int *grand_total);
-void				inset_color(int *add_color, int *dest, char *origin);
-
-// process_map3.c
-void				debug_print_map(char **map);
 
 // textures.c
 void				init_textures(t_game *g);

@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:06:20 by strodrig          #+#    #+#             */
-/*   Updated: 2025/08/14 12:39:32 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:41:36 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	close_game(void *param)
 	if (game)
 	{
 		destroy_textures(game);
-		// Don't free game->map directly as it's owned by map_data
 		if (game->map_data)
 			map_free(game->map_data);
 		cleanup_parsed(game);
