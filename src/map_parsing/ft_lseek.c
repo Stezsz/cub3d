@@ -17,11 +17,13 @@
  */
 static int	process_count_line(char *line, int *found_map_start, int *count)
 {
-	if (!(*found_map_start) && (line[0] == ' ' || line[0] == '1'))
+	if (!(*found_map_start) && is_map_content_line(line))
 		*found_map_start = 1;
 	if (*found_map_start)
 	{
 		if (line[0] == '\n' || line[0] == '\0')
+			return (-1);
+		if (!is_map_content_line(line))
 			return (-1);
 		(*count)++;
 	}

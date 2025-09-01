@@ -12,6 +12,30 @@
 
 #include "map.h"
 
+/*
+ * Returns 1 if the line contains only valid map characters (spaces, 0,1,N,S,E,W)
+ * ignoring the trailing newline. Otherwise returns 0.
+ */
+int	is_map_content_line(const char *line)
+{
+	int i;
+	char c;
+
+	if (!line)
+		return (0);
+	i = 0;
+	while (line[i] && line[i] != '\n')
+	{
+		c = line[i];
+		if (!(c == ' ' || c == '0' || c == '1' || c == 'N' || c == 'S'
+			|| c == 'E' || c == 'W'))
+			return (0);
+		i++;
+	}
+	/* consider empty line (only \n or \0) as not a map line here */
+	return (i > 0);
+}
+
 /**
  * Counts the number of map lines in the file
  */
@@ -26,12 +50,21 @@ int	count_map_lines(int fd)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		if (!found_map_start && (line[0] == ' ' || line[0] == '1'))
+		if (!found_map_start && is_map_content_line(line))
 			found_map_start = 1;
 		if (found_map_start)
 		{
 			if (line[0] == '\n' || line[0] == '\0')
+			{
+				free(line);
 				break ;
+			}
+			if (!is_map_content_line(line))
+			{
+				/* invalid content inside map block -> stop, remaining handled later */
+				free(line);
+				break ;
+			}
 			count++;
 		}
 		free(line);
@@ -104,7 +137,7 @@ void	normalize_map_lines(char **map_lines, int height, int width)
 	i = 0;
 	while (i < height)
 	{
-		old_len = ft_strlen(map_lines[i]);
+	old_len = ft_strlen(map_lines[i]);
 		if (old_len > 0 && map_lines[i][old_len - 1] == '\n')
 		{
 			map_lines[i][old_len - 1] = '\0';

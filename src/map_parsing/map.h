@@ -17,8 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include "../includes/libft/libft.h"
-# include "../includes/libft/ft_printf/ft_printf.h"
+# include "../../includes/libft/libft.h"
+# include "../../includes/libft/ft_printf/ft_printf.h"
 # include "../../includes/libft/get_next_line/get_next_line.h"
 
 typedef struct s_map_data
@@ -60,5 +60,8 @@ char		**read_map_grid(char *filename, int fd, int *height, int *width);
 int			count_map_lines_from_file(char *filename);
 int			parse_textures_and_colors(t_map_data *map_data, char *filename);
 void		map_print_debug(t_map_data *map);
+
+/* Helpers to identify map content lines */
+int			is_map_content_line(const char *line);
 
 #endif

@@ -75,7 +75,7 @@ int	flood_fill_check(t_map_data *map, char **visited, int x, int y)
 	visited[x][y] = '1';
 	if (check_neighbors_for_void(map, x, y))
 	{
-		ft_printf("Invalid opening found at position (%d, %d)\n", x, y);
+		ft_putstr_fd("Error\nMap has an opening to void\n", 2);
 		return (1);
 	}
 	if (flood_fill_check(map, visited, x - 1, y)

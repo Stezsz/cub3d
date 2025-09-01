@@ -110,7 +110,13 @@ int	main(int ac, char **av)
 	ft_bzero(&game, sizeof(t_game));
 	if (ac != 2)
 	{
-		ft_putstr_fd("Usage: ./cub3d <map_file>\n", 2);
+		ft_putstr_fd("Error\nUsage: ./cub3d <map_file.cub>\n", 2);
+		return (1);
+	}
+	// validate extension .cub
+	if (ft_strlen(av[1]) < 5 || ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)
+	{
+		ft_putstr_fd("Error\nMap file must have .cub extension\n", 2);
 		return (1);
 	}
 	init_game(&game, av[1]);

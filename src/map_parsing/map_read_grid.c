@@ -17,7 +17,7 @@
  */
 static int	is_map_start(char *line)
 {
-	return (line[0] == ' ' || line[0] == '1');
+	return (is_map_content_line(line));
 }
 
 /**
@@ -34,6 +34,12 @@ static int	process_map_line(char *line, char **map_lines, int *i, int *found)
 		*found = 1;
 	if (line[0] == '\n' || line[0] == '\0')
 	{
+		free(line);
+		return (-1);
+	}
+	if (!is_map_content_line(line))
+	{
+		/* non-map line after map started ends the map block */
 		free(line);
 		return (-1);
 	}

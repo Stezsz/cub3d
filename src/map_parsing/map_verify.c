@@ -27,7 +27,7 @@ int	map_verify_enclosed(t_map_data *map)
 		return (0);
 	if (!map_find_player_position(map, &player_x, &player_y))
 	{
-		ft_putstr_fd("Error\nNo player found in map\n", 2);
+		ft_putstr_fd("Error\nPlayer not found in map\n", 2);
 		return (0);
 	}
 	visited = create_visited_array(map);
@@ -91,10 +91,7 @@ int	map_verify_characters(t_map_data *map)
 		{
 			if (!is_valid_char(map->map[x][y]))
 			{
-				ft_printf("Error\nInvalid character '%c' (ASCII"
-					"%d) found at position (%d, %d)\n",
-					map->map[x][y], (int)map->map[x][y],
-					x, y);
+				ft_putstr_fd("Error\nInvalid character in map\n", 2);
 				return (0);
 			}
 			y++;
@@ -120,8 +117,7 @@ int	map_verify_complete(t_map_data *map)
 	}
 	if (!map_verify_player_count(map))
 	{
-		ft_putstr_fd("Error\nMap must contain exactly one player (N, S, E,"
-			"or W)\n", 2);
+		ft_putstr_fd("Error\nMap must contain exactly one player\n", 2);
 		return (0);
 	}
 	if (!map_verify_enclosed(map))

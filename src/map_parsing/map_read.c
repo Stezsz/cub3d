@@ -56,7 +56,7 @@ static int	open_map_file(char *map_file)
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("Error: Cannot open map file %s\n", map_file);
+	ft_putstr_fd("Error\nCannot open map file\n", 2);
 		return (-1);
 	}
 	return (fd);
@@ -73,13 +73,12 @@ static t_map_data	*process_map_data(char *map_file, int fd)
 	map = map_init_from_fd(map_file, fd);
 	if (!map)
 	{
-		printf("Error: Failed to initialize map from %s\n", map_file);
+	ft_putstr_fd("Error\nFailed to initialize map\n", 2);
 		return (NULL);
 	}
 	if (!parse_textures_and_colors(map, map_file))
 	{
-		printf("Error: Failed to parse textures and colors from %s\n",
-			map_file);
+	ft_putstr_fd("Error\nFailed to parse textures and colors\n", 2);
 		map_free(map);
 		return (NULL);
 	}

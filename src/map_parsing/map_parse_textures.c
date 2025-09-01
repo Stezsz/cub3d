@@ -83,7 +83,7 @@ static int	process_config_line(t_map_data *map_data, char *line)
 	char	*trimmed;
 
 	trimmed = ft_strtrim(line, " \t\n");
-	if (!trimmed || ft_strlen(trimmed) < 2)
+	if (!trimmed || ft_strlen(trimmed) < 1)
 	{
 		if (trimmed)
 			free(trimmed);
@@ -108,7 +108,7 @@ int	parse_textures_and_colors(t_map_data *map_data, char *filename)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		if (line[0] == ' ' || line[0] == '1')
+	if (is_map_content_line(line))
 		{
 			free(line);
 			break ;
