@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:00:00 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 16:41:03 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/01 22:51:52 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	parse_textures_and_colors(t_map_data *map_data, char *filename)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-	if (is_map_content_line(line))
+		if (is_map_content_line(line))
 		{
 			free(line);
 			break ;

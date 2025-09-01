@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 15:17:02 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/01 22:51:29 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static t_map_data	*load_and_verify_map(char *map_path)
 		ft_putstr_fd("Error\nLoading map failed.\n", 2);
 		exit(1);
 	}
-	ft_printf("Map loaded successfully - dimensions: %dx%d\n",
-		map_data->width, map_data->height);
+	ft_printf("Map loaded successfully - dimensions: %dx%d\n", map_data->width,
+		map_data->height);
 	if (!map_verify_complete(map_data))
 	{
 		ft_putstr_fd("Error\nInvalid Map!\n", 2);
@@ -113,8 +113,8 @@ int	main(int ac, char **av)
 		ft_putstr_fd("Error\nUsage: ./cub3d <map_file.cub>\n", 2);
 		return (1);
 	}
-	// validate extension .cub
-	if (ft_strlen(av[1]) < 5 || ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4) != 0)
+	if (ft_strlen(av[1]) < 5 || ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub",
+			4) != 0)
 	{
 		ft_putstr_fd("Error\nMap file must have .cub extension\n", 2);
 		return (1);

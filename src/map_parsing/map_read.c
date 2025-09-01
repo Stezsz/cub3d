@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:28:43 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 16:41:03 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/01 22:48:00 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	open_map_file(char *map_file)
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 	{
-	ft_putstr_fd("Error\nCannot open map file\n", 2);
+		ft_putstr_fd("Error\nCannot open map file\n", 2);
 		return (-1);
 	}
 	return (fd);
@@ -73,12 +73,12 @@ static t_map_data	*process_map_data(char *map_file, int fd)
 	map = map_init_from_fd(map_file, fd);
 	if (!map)
 	{
-	ft_putstr_fd("Error\nFailed to initialize map\n", 2);
+		ft_putstr_fd("Error\nFailed to initialize map\n", 2);
 		return (NULL);
 	}
 	if (!parse_textures_and_colors(map, map_file))
 	{
-	ft_putstr_fd("Error\nFailed to parse textures and colors\n", 2);
+		ft_putstr_fd("Error\nFailed to parse textures and colors\n", 2);
 		map_free(map);
 		return (NULL);
 	}

@@ -6,20 +6,21 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 18:00:00 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/13 19:10:21 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/01 23:02:01 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 
 /*
- * Returns 1 if the line contains only valid map characters (spaces, 0,1,N,S,E,W)
+ * Returns 1 if the line contains only valid map characters (spaces,
+	0,1,N,S,E,W)
  * ignoring the trailing newline. Otherwise returns 0.
  */
 int	is_map_content_line(const char *line)
 {
-	int i;
-	char c;
+	int		i;
+	char	c;
 
 	if (!line)
 		return (0);
@@ -28,11 +29,10 @@ int	is_map_content_line(const char *line)
 	{
 		c = line[i];
 		if (!(c == ' ' || c == '0' || c == '1' || c == 'N' || c == 'S'
-			|| c == 'E' || c == 'W'))
+				|| c == 'E' || c == 'W'))
 			return (0);
 		i++;
 	}
-	/* consider empty line (only \n or \0) as not a map line here */
 	return (i > 0);
 }
 
@@ -54,14 +54,9 @@ int	count_map_lines(int fd)
 			found_map_start = 1;
 		if (found_map_start)
 		{
-			if (line[0] == '\n' || line[0] == '\0')
+			if (line[0] == '\n' || line[0] == '\0'
+				|| !is_map_content_line(line))
 			{
-				free(line);
-				break ;
-			}
-			if (!is_map_content_line(line))
-			{
-				/* invalid content inside map block -> stop, remaining handled later */
 				free(line);
 				break ;
 			}
@@ -137,7 +132,7 @@ void	normalize_map_lines(char **map_lines, int height, int width)
 	i = 0;
 	while (i < height)
 	{
-	old_len = ft_strlen(map_lines[i]);
+		old_len = ft_strlen(map_lines[i]);
 		if (old_len > 0 && map_lines[i][old_len - 1] == '\n')
 		{
 			map_lines[i][old_len - 1] = '\0';

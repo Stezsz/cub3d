@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 18:00:00 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 14:51:47 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/01 22:48:18 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	process_map_line(char *line, char **map_lines, int *i, int *found)
 	}
 	if (!is_map_content_line(line))
 	{
-		/* non-map line after map started ends the map block */
 		free(line);
 		return (-1);
 	}
