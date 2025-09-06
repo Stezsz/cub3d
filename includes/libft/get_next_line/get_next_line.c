@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tborges- <tborges-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:57:00 by tborges-          #+#    #+#             */
-/*   Updated: 2024/12/04 10:00:11 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/06 14:49:47 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,40 @@ char	*get_line(char *line)
 	return (str);
 }
 
-/**
- * O objetivo desta função é limpar a variável line, guardando o pedaço de
- * texto referido na função anterior para ser usado na próxima vez que
- * o programa for usado.
- */
-char	*new_line(char *line)
+/* Helper para extrair o resto após o '\n' */
+static char	*remainder_after_newline(char *line, int nl_pos)
 {
 	char	*str;
-	int		i;
 	int		j;
+	int		len;
 
+	if (line[nl_pos] == '\0' || line[nl_pos + 1] == '\0')
+	{
+		free(line);
+		return (NULL);
+	}
+	len = ft_strlen_gnl(line) - nl_pos;
+	str = (char *)malloc(len);
+	if (!str)
+	{
+		free(line);
+		return (NULL);
+	}
+	nl_pos++;
+	j = 0;
+	while (line[nl_pos])
+		str[j++] = line[nl_pos++];
+	str[j] = '\0';
+	free(line);
+	return (str);
+}
+
+char	*new_line(char *line)
+{
+	int	i;
+
+	if (!line)
+		return (NULL);
 	i = 0;
 	while (line[i] && line[i] != '\n')
 		i++;
@@ -91,16 +114,7 @@ char	*new_line(char *line)
 		free(line);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(char) * ft_strlen_gnl(line) - i + 1);
-	if (!str)
-		return (NULL);
-	i++;
-	j = 0;
-	while (line[i])
-		str[j++] = line[i++];
-	str[j] = '\0';
-	free(line);
-	return (str);
+	return (remainder_after_newline(line, i));
 }
 
 /**
