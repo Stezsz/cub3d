@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:08:59 by strodrig          #+#    #+#             */
-/*   Updated: 2025/08/13 12:17:11 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:42:52 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	init_textures(t_game *g)
 		destroy_textures(g);
 		exit(1);
 	}
+	ft_bzero(g->textures->north, sizeof(t_texture));
+	ft_bzero(g->textures->south, sizeof(t_texture));
+	ft_bzero(g->textures->east, sizeof(t_texture));
+	ft_bzero(g->textures->west, sizeof(t_texture));
+	ft_bzero(g->textures->sky, sizeof(t_texture));
+	ft_bzero(g->textures->portal_gun, sizeof(t_texture));
 }
 
 /**

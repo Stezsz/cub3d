@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 22:10:58 by tborges-          #+#    #+#             */
-/*   Updated: 2025/09/01 22:51:29 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:53:55 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static t_map_data	*load_and_verify_map(char *map_path)
 		map_data->height);
 	if (!map_verify_complete(map_data))
 	{
-		ft_putstr_fd("Error\nInvalid Map!\n", 2);
 		map_free(map_data);
 		exit(1);
 	}

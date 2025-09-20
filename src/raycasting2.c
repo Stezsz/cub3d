@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 17:09:48 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/23 22:22:08 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:36:46 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ void	draw_textured_wall(t_wall_data *data)
 	int		y;
 	int		wall_height;
 
-	if (!data->ray->wall_texture || !data->ray->wall_texture->data)
+	if (!data->ray->wall_texture || !data->ray->wall_texture->data
+		|| data->ray->wall_texture->width <= 0
+		|| data->ray->wall_texture->height <= 0)
 	{
 		draw_fallback_wall(data);
 		return ;

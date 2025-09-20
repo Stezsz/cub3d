@@ -17,6 +17,7 @@
 # define HEIGHT 720
 # define BLOCK 64
 # define DEBUG 0
+# define PLAYER_RADIUS 10
 
 # define W 119
 # define A 97

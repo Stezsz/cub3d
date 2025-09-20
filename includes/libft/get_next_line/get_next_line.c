@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:57:00 by tborges-          #+#    #+#             */
-/*   Updated: 2025/09/20 13:16:47 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:44:15 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ char	*get_next_line(int fd)
 			free(line);
 		line = NULL;
 		return (NULL);
-
 	}
 	line = read_line(fd, line);
 	if (!line)

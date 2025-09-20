@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 16:54:30 by tborges-          #+#    #+#             */
-/*   Updated: 2025/08/14 14:51:47 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:53:47 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ int	flood_fill_check(t_map_data *map, char **visited, int x, int y)
 		return (0);
 	visited[x][y] = '1';
 	if (check_neighbors_for_void(map, x, y))
-	{
-		ft_putstr_fd("Error\nMap has an opening to void\n", 2);
 		return (1);
-	}
 	if (flood_fill_check(map, visited, x - 1, y)
 		|| flood_fill_check(map, visited, x + 1, y)
 		|| flood_fill_check(map, visited, x, y - 1)

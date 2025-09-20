@@ -6,7 +6,7 @@
 /*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:09:29 by strodrig          #+#    #+#             */
-/*   Updated: 2025/07/23 22:19:17 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:44:09 by tborges-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,22 @@
  */
 t_texture	*get_wall_texture(t_game *game, int wall_side)
 {
-	if (!game->textures)
+	t_texture	*tex;
+
+	if (!game || !game->textures)
 		return (NULL);
+	tex = NULL;
 	if (wall_side == 0)
-		return (game->textures->north);
+		tex = game->textures->north;
 	else if (wall_side == 1)
-		return (game->textures->south);
+		tex = game->textures->south;
 	else if (wall_side == 2)
-		return (game->textures->east);
+		tex = game->textures->east;
 	else if (wall_side == 3)
-		return (game->textures->west);
-	return (game->textures->north);
+		tex = game->textures->west;
+	if (!tex || !tex->data)
+		return (NULL);
+	return (tex);
 }
 
 /**
@@ -37,7 +42,7 @@ void	calculate_texture_coordinates(t_raycasting *ray, t_game *game, int x)
 {
 	(void)game;
 	(void)x;
-	if (!ray->wall_texture)
+	if (!ray->wall_texture || ray->wall_texture->width <= 0)
 		return ;
 	ray->tex_x = (int)(ray->wall_hit_x * ray->wall_texture->width);
 	if (ray->tex_x < 0)
