@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_textures.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tborges- <tborges-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:00:00 by tborges-          #+#    #+#             */
-/*   Updated: 2025/09/01 22:51:52 by tborges-         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:25:35 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int	parse_textures_and_colors(t_map_data *map_data, char *filename)
 		free(line);
 		line = get_next_line(fd);
 	}
+	get_next_line(-1);
 	close(fd);
 	return (map_data->north_texture && map_data->south_texture
 		&& map_data->east_texture && map_data->west_texture

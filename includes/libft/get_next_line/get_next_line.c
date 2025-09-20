@@ -6,7 +6,7 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:57:00 by tborges-          #+#    #+#             */
-/*   Updated: 2025/09/06 14:49:47 by strodrig         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:16:47 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,13 @@ char	*get_next_line(int fd)
 	char		*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
+	{
+		if (line)
+			free(line);
+		line = NULL;
 		return (NULL);
+
+	}
 	line = read_line(fd, line);
 	if (!line)
 		return (NULL);
